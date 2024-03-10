@@ -23,7 +23,8 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     //Greeting("Android")
-                    RegisterForm()
+                    //RegisterForm()
+                    Home()
                 }
             }
         }
@@ -42,6 +43,6 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 @Composable
 fun GreetingPreview() {
     TaskHuntersTheme {
-        Greeting("Android")
+        Greeting(name = "Android")
     }
 }

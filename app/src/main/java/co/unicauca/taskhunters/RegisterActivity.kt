@@ -4,9 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -31,6 +29,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
@@ -55,7 +54,7 @@ fun InputField(
         trailingIcon = {
             if (text.text.isNotEmpty()) {
                 IconButton(
-                    onClick = { /* Acción de borrado */ },
+                    onClick = { /* Clear */ },
                 ) {
                     Icon(
                         imageVector = Icons.Default.Clear,
@@ -63,7 +62,13 @@ fun InputField(
                     )
                 }
             }
-        }
+        },
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(
+                start = 24.dp,
+                end = 24.dp
+            )
     )
     Spacer(modifier = Modifier.padding(8.dp))
 }
@@ -77,27 +82,25 @@ fun RegisterForm() {
             Image(
                 painter = painterResource(R.drawable.register_image),
                 contentDescription = "Register image",
+                contentScale = ContentScale.FillWidth,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(392.dp) // Ajusta la altura según tus necesidades
+                    .height(380.dp)
+                //.padding(top = 8.dp)
+                //.clip(shape = RoundedCornerShape(48.dp))
             )
-            Row(
+            IconButton(
+                onClick = { /* Return */ },
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
+                    .padding(12.dp)
+                    .size(48.dp)
+                    .clip(CircleShape)
+                    .background(MaterialTheme.colorScheme.primary)
             ) {
-                IconButton(
-                    onClick = { /* Acción de retroceso */ },
-                    modifier = Modifier
-                        .size(48.dp)
-                        .clip(CircleShape)
-                        .background(MaterialTheme.colorScheme.primary)
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.ArrowBack,
-                        contentDescription = "Back"
-                    )
-                }
+                Icon(
+                    imageVector = Icons.Default.ArrowBack,
+                    contentDescription = "Back"
+                )
             }
         }
         Spacer(modifier = Modifier.padding(12.dp))
@@ -126,5 +129,6 @@ fun PreviewLabel() {
         color = MaterialTheme.colorScheme.background
     ) {
         RegisterForm()
+
     }
 }
