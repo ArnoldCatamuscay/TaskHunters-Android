@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -18,6 +19,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.outlined.CheckCircle
 import androidx.compose.material.icons.outlined.DateRange
@@ -31,12 +34,15 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asComposePath
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -62,6 +68,46 @@ fun TasksList(messages: List<Task>) {
             TaskCard(message)
         }
     }
+}
+
+@Composable
+fun SearchBar(modifier: Modifier = Modifier) {
+    TextField(
+        value = "",
+        onValueChange = {},
+        leadingIcon = {
+            Icon(
+                imageVector = Icons.Default.Menu,
+                contentDescription = null,
+                modifier = Modifier.padding(start = 15.dp)
+            )
+        },
+        trailingIcon = {
+            Icon(
+                imageVector = Icons.Default.Search,
+                contentDescription = null,
+                modifier = Modifier.padding(end = 15.dp)
+            )
+        },
+        colors = TextFieldDefaults.colors(
+            unfocusedIndicatorColor = Color.Transparent,
+            unfocusedLabelColor = Color.Transparent,
+            focusedIndicatorColor = Color.Transparent,
+            focusedLabelColor = Color.Transparent,
+            unfocusedContainerColor = Color.LightGray,
+            focusedContainerColor = Color.LightGray
+        ),
+        shape = RoundedCornerShape(30.dp),
+        placeholder = {
+            Text(
+                stringResource(R.string.placeholder_search),
+                modifier = Modifier.padding(start = 5.dp)
+            )
+        },
+        modifier = modifier
+            .fillMaxWidth()
+            .heightIn(min = 56.dp)
+    )
 }
 
 @Composable
@@ -153,6 +199,7 @@ data class BottomNavigationItem(
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun Home() {
+
     val items = listOf(
         BottomNavigationItem(
             title = "Home",
@@ -183,6 +230,7 @@ fun Home() {
     Scaffold(
         topBar = {
             /*TODO Search bar*/
+            SearchBar(modifier = Modifier.padding(8.dp))
         },
         bottomBar = {
             NavigationBar {
@@ -214,7 +262,9 @@ fun Home() {
             }
         }
     ) {
-        TasksList(messages = taskList)
+        Column(modifier = Modifier.fillMaxSize().padding(top = 80.dp)) {
+            TasksList(messages = taskList)
+        }
     }
 }
 

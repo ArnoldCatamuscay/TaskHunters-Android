@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">TaskHunters</string>
+    <string name="placeholder_search">Search</string>
 </resources>
