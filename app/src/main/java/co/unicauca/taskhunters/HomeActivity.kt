@@ -239,6 +239,7 @@ fun RewardsCard(){
         val recentRewardsList = listOf(
             R.drawable.silver_sword_image,
             R.drawable.wooden_shield_image,
+            R.drawable.boots_image
         )
 
         items(recentRewardsList) { resourceId ->
