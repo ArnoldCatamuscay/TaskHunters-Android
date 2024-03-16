@@ -22,7 +22,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     //Greeting("Android")
-                    RegisterForm()
+                    Home()
                 }
             }
         }
@@ -31,14 +31,14 @@ class MainActivity : ComponentActivity() {
 
 @Preview(showBackground = true)
 @Composable
-fun MainPreview() {
+fun HomeActivityPreview() {
     TaskHuntersTheme {
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
             //Greeting("Android")
-            RegisterForm()
+            Home()
         }
     }
 }
