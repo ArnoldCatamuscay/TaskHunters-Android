@@ -66,12 +66,18 @@ import co.unicauca.taskhunters.ui.theme.TaskHuntersTheme
 enum class TaskType { DAILY, TODO }
 data class Task(val title: String, val body: String = "", val taskType: TaskType)
 
+data class BottomNavigationItem(
+    val title: String,
+    val selectedIcon: ImageVector,
+    val unselectedIcon: ImageVector,
+    val hasNews: Boolean,
+    val badgeCount: Int? = null
+)
+
 val taskList = listOf(
     Task(title = "Do Homework", taskType = TaskType.DAILY),
     Task(title = "To Do Project", body = "Meeting with my friends", taskType = TaskType.TODO),
 )
-
-
 
 @Composable
 fun TasksList(messages: List<Task>) {
@@ -162,7 +168,6 @@ fun TaskCard(task: Task) {
                             .asComposePath()
                         drawPath(roundedPolygonPath, color = Color.LightGray)
                     }
-
                 }
             )
         }
@@ -259,33 +264,11 @@ fun RewardsCard(){
         }
     }
 }
-/*
-@Preview
-@Composable
-fun TasksPreview() {
-    TaskHuntersTheme {
-        Surface(
-            modifier = Modifier.fillMaxSize(),
-            color = MaterialTheme.colorScheme.background
-        ) {
-            TasksList(messages = taskList)
-        }
-    }
-}*/
-
-data class BottomNavigationItem(
-    val title: String,
-    val selectedIcon: ImageVector,
-    val unselectedIcon: ImageVector,
-    val hasNews: Boolean,
-    val badgeCount: Int? = null
-)
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun Home() {
-
     val items = listOf(
         BottomNavigationItem(
             title = "Home",
@@ -315,7 +298,6 @@ fun Home() {
     )
     Scaffold(
         topBar = {
-            /*TODO Search bar*/
             SearchBar(modifier = Modifier.padding(8.dp))
         },
         bottomBar = {
