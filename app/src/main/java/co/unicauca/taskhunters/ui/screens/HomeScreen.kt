@@ -1,4 +1,5 @@
-package co.unicauca.taskhunters
+package co.unicauca.taskhunters.ui.screens
+
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Canvas
@@ -59,6 +60,7 @@ import androidx.compose.ui.unit.dp
 import androidx.graphics.shapes.CornerRounding
 import androidx.graphics.shapes.RoundedPolygon
 import androidx.graphics.shapes.toPath
+import co.unicauca.taskhunters.R
 import co.unicauca.taskhunters.ui.theme.GreenCardTask
 import co.unicauca.taskhunters.ui.theme.OrangeCardTask
 import co.unicauca.taskhunters.ui.theme.TaskHuntersTheme
