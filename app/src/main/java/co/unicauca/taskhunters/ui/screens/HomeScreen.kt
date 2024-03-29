@@ -38,12 +38,10 @@ import co.unicauca.taskhunters.ui.components.TaskCard
 import co.unicauca.taskhunters.ui.theme.TaskHuntersTheme
 
 @Composable
-fun HomeScreen(innerPadding: PaddingValues, modifier: Modifier = Modifier) {
+fun HomeScreen(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .fillMaxSize()
-            .padding(innerPadding)
-            //.padding(top = 80.dp)
     ) {
         CharacterInfo(
             health = 1f,
@@ -54,7 +52,6 @@ fun HomeScreen(innerPadding: PaddingValues, modifier: Modifier = Modifier) {
         )
         PendingTasks(messages = taskList, modifier = Modifier.weight(1f))
         RecentRewards(modifier = Modifier.weight(1f))
-        //Spacer(modifier = Modifier.padding(36.dp))
     }
 }
 
@@ -165,6 +162,6 @@ fun RecentRewards(modifier: Modifier = Modifier) {
 @Composable
 fun HomePreview() {
     TaskHuntersTheme {
-        HomeScreen(innerPadding = PaddingValues())
+        HomeScreen()
     }
 }
