@@ -10,7 +10,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Clear
@@ -39,45 +41,11 @@ import androidx.compose.ui.unit.dp
 import co.unicauca.taskhunters.R
 
 @Composable
-fun InputField(
-    placeholder: String,
-    visualTransformation: VisualTransformation = VisualTransformation.None
-) {
-    var text by remember { mutableStateOf(TextFieldValue("")) }
-    TextField(
-        value = text,
-        visualTransformation = visualTransformation,
-        onValueChange = {
-            text = it
-        },
-        placeholder = { Text(text = placeholder) },
-        supportingText = { Text(text = "Supporting text") },
-        trailingIcon = {
-            if (text.text.isNotEmpty()) {
-                IconButton(
-                    onClick = { /* Clear */ },
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Clear,
-                        contentDescription = "Clear field"
-                    )
-                }
-            }
-        },
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(
-                start = 24.dp,
-                end = 24.dp
-            )
-    )
-    Spacer(modifier = Modifier.padding(8.dp))
-}
-
-@Composable
-fun RegisterForm() {
+fun RegisterScreen(modifier: Modifier = Modifier) {
     Column(
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = modifier
+            .verticalScroll(rememberScrollState())
     ) {
         Box {
             Image(
@@ -121,15 +89,49 @@ fun RegisterForm() {
     }
 }
 
+@Composable
+fun InputField(
+    placeholder: String,
+    visualTransformation: VisualTransformation = VisualTransformation.None
+) {
+    var text by remember { mutableStateOf(TextFieldValue("")) }
+    TextField(
+        value = text,
+        visualTransformation = visualTransformation,
+        onValueChange = {
+            text = it
+        },
+        placeholder = { Text(text = placeholder) },
+        supportingText = { Text(text = "Supporting text") },
+        trailingIcon = {
+            if (text.text.isNotEmpty()) {
+                IconButton(
+                    onClick = { /* Clear */ },
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Clear,
+                        contentDescription = "Clear field"
+                    )
+                }
+            }
+        },
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(
+                start = 24.dp,
+                end = 24.dp
+            )
+    )
+    Spacer(modifier = Modifier.padding(8.dp))
+}
+
 @Preview
 @Composable
-fun PreviewLabel() {
-    //InputField("Username", keyboardType = KeyboardType.Text)
+fun PreviewRegisterScreen() {
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
     ) {
-        RegisterForm()
-
+        RegisterScreen()
     }
 }
