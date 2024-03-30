@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
@@ -36,7 +37,7 @@ import co.unicauca.taskhunters.ui.components.Task
 import co.unicauca.taskhunters.ui.components.TaskCard
 import co.unicauca.taskhunters.ui.theme.TaskHuntersTheme
 
-@Composable
+/*@Composable
 fun HomeScreen(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
@@ -51,6 +52,81 @@ fun HomeScreen(modifier: Modifier = Modifier) {
         )
         PendingTasks(messages = taskList, modifier = Modifier.weight(1f))
         RecentRewards(modifier = Modifier.weight(1f))
+    }
+}*/
+
+@Composable
+fun HomeScreen(modifier: Modifier = Modifier) {
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(4),
+        modifier = modifier
+    ) {
+        //Character info
+        item(span = { GridItemSpan(maxLineSpan) }) {
+            Column(modifier = Modifier.fillMaxWidth()) {
+                CharacterInfo(
+                    health = 1f,
+                    exp = 0.3f,
+                    modifier = Modifier
+                        .align(Alignment.CenterHorizontally)
+                )
+            }
+        }
+        //Pending tasks
+        item(span = { GridItemSpan(maxLineSpan) }) {
+            Column {
+                Text(
+                    text = "Pending Tasks",
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(8.dp)
+                )
+                Divider(
+                    color = Color.Gray,
+                    thickness = 1.dp,
+                    modifier = Modifier.padding(horizontal = 8.dp)
+                )
+                Spacer(modifier = Modifier.height(10.dp))
+            }
+        }
+        items(
+            taskList,
+            span = { GridItemSpan(maxLineSpan) }
+        ) { message ->
+            TaskCard(message)
+        }
+        //Recent rewards
+        item(span = { GridItemSpan(maxLineSpan) }) {
+            Column {
+                Text(
+                    text = "Recent Rewards",
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(8.dp)
+                )
+                Divider(
+                    color = Color.Gray,
+                    thickness = 1.dp,
+                    modifier = Modifier.padding(horizontal = 8.dp)
+                )
+                Spacer(modifier = Modifier.height(10.dp))
+            }
+        }
+        items(recentRewardsList) { resourceId ->
+            Box(
+                modifier = Modifier
+                    .padding(8.dp)
+                    .size(80.dp)
+                    .clip(RoundedCornerShape(16.dp))
+                    .background(Color.LightGray.copy(alpha = 0.7f))
+            ) {
+                Image(
+                    painter = painterResource(id = resourceId),
+                    contentDescription = null,
+                    modifier = Modifier.fillMaxSize()
+                )
+            }
+        }
     }
 }
 
