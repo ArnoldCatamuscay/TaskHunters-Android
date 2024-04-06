@@ -18,7 +18,6 @@ import co.unicauca.taskhunters.ui.components.BOTTOM_NAV_ITEMS
 import co.unicauca.taskhunters.ui.components.BottomNavBar
 import co.unicauca.taskhunters.ui.components.NavigationDrawerContent
 import co.unicauca.taskhunters.ui.components.NavigationGraph
-import co.unicauca.taskhunters.ui.components.TopSearchBar
 import co.unicauca.taskhunters.ui.theme.TaskHuntersTheme
 
 @Composable
@@ -38,18 +37,23 @@ fun TaskHuntersApp() {
         drawerState = drawerState
     ) {
         Scaffold(
-            topBar = {
+            /*topBar = {
                 //MySearchBar(modifier = Modifier.padding(8.dp))
                 TopSearchBar(drawerState = drawerState, scope = scope)
+            },*/
+            bottomBar = {
+                BottomNavBar(
+                    BOTTOM_NAV_ITEMS,
+                    onClickButton = { route -> navController.navigate(route) }
+                )
             },
-            bottomBar = { BottomNavBar(BOTTOM_NAV_ITEMS, navController) },
         ) { innerPadding ->
             Box(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(innerPadding)
             ) {
-                NavigationGraph(navController)
+                NavigationGraph(navController, drawerState=drawerState, scope=scope)
             }
         }
     }

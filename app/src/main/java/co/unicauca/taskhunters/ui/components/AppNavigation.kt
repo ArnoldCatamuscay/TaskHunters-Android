@@ -35,17 +35,22 @@ import androidx.navigation.compose.composable
 import co.unicauca.taskhunters.R
 import co.unicauca.taskhunters.ui.screens.HomeScreen
 import co.unicauca.taskhunters.ui.screens.RegisterScreen
+import co.unicauca.taskhunters.ui.screens.RewardsScreen
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 @Composable
-fun NavigationGraph(navController: NavHostController) {
+fun NavigationGraph(
+    navController: NavHostController,
+    drawerState: DrawerState,
+    scope: CoroutineScope
+) {
     NavHost(
         navController = navController,
         startDestination = Screens.HomeScreen.name
     ) {
         composable(route = Screens.HomeScreen.name) {
-            HomeScreen()
+            HomeScreen(drawerState=drawerState, scope=scope)
         }
         composable(route = Screens.DailiesScreen.name) {
 
@@ -54,7 +59,7 @@ fun NavigationGraph(navController: NavHostController) {
 
         }
         composable(route = Screens.RewardsScreen.name) {
-
+            RewardsScreen()
         }
         composable(route = Screens.RegisterScreen.name) {
             RegisterScreen()
@@ -154,7 +159,10 @@ fun TopSearchBar(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BottomNavBar(items: List<NavigationItem>, navController: NavController) {
+fun BottomNavBar(
+    items: List<NavigationItem>,
+    onClickButton: (String) -> Unit = {}
+) {
     var selectedIndex by remember { mutableIntStateOf(0) }
 
     NavigationBar {
@@ -163,7 +171,7 @@ fun BottomNavBar(items: List<NavigationItem>, navController: NavController) {
                 selected = false,
                 onClick = {
                     selectedIndex = index
-                    navController.navigate(items[index].route)
+                    onClickButton.invoke(item.route)
                 },
                 label = { Text(text = item.title) },
                 icon = {

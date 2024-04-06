@@ -66,7 +66,7 @@ fun RewardsScreen(modifier: Modifier = Modifier) {
                 Spacer(modifier = Modifier.height(10.dp))
             }
         }
-        items(recentRewardsList) { resourceId ->
+        items(recentRewardsList) { reward ->
             Box(
                 modifier = Modifier
                     .padding(8.dp)
@@ -75,7 +75,7 @@ fun RewardsScreen(modifier: Modifier = Modifier) {
                     .background(Color.Gray.copy(alpha = 0.5f))
             ) {
                 Image(
-                    painter = painterResource(id = resourceId),
+                    painter = painterResource(id = reward.imageId),
                     contentDescription = null,
                     modifier = Modifier
                         //.fillMaxSize()
@@ -92,7 +92,7 @@ fun RewardsScreen(modifier: Modifier = Modifier) {
                         .clip(CircleShape)
                 )
                 Text(
-                    text = "25",
+                    text = reward.cost.toString(),
                     modifier = Modifier
                         .padding(start = 10.dp)
                         .align(Alignment.BottomCenter),
