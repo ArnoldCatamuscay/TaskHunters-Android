@@ -4,20 +4,19 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Divider
+import androidx.compose.material3.DrawerState
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -33,28 +32,87 @@ import androidx.compose.ui.unit.dp
 import co.unicauca.taskhunters.R
 import co.unicauca.taskhunters.data.recentRewardsList
 import co.unicauca.taskhunters.data.taskList
-import co.unicauca.taskhunters.ui.components.Task
 import co.unicauca.taskhunters.ui.components.TaskCard
+import co.unicauca.taskhunters.ui.components.TopSearchBar
 import co.unicauca.taskhunters.ui.theme.TaskHuntersTheme
+import kotlinx.coroutines.CoroutineScope
 
 @Composable
-fun HomeScreen(innerPadding: PaddingValues, modifier: Modifier = Modifier) {
-    Column(
+fun HomeScreen(
+    modifier: Modifier = Modifier,
+    drawerState: DrawerState,
+    scope: CoroutineScope
+) {
+
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(4),
         modifier = modifier
-            .fillMaxSize()
-            .padding(innerPadding)
-            //.padding(top = 80.dp)
     ) {
-        CharacterInfo(
-            health = 1f,
-            exp = 0.3f,
-            modifier = Modifier
-                .align(Alignment.CenterHorizontally)
-                .weight(1f)
-        )
-        PendingTasks(messages = taskList, modifier = Modifier.weight(1f))
-        RecentRewards(modifier = Modifier.weight(1f))
-        //Spacer(modifier = Modifier.padding(36.dp))
+        item(span = { GridItemSpan(maxLineSpan) }) {
+            TopSearchBar(drawerState = drawerState, scope = scope)
+        }
+        //Character info
+        item(span = { GridItemSpan(maxLineSpan) }) {
+            CharacterInfo(
+                health = 1f,
+                exp = 0.3f
+            )
+        }
+        //Pending tasks
+        item(span = { GridItemSpan(maxLineSpan) }) {
+            Column {
+                Text(
+                    text = "Pending Tasks",
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(8.dp)
+                )
+                Divider(
+                    color = Color.Gray,
+                    thickness = 1.dp,
+                    modifier = Modifier.padding(horizontal = 8.dp)
+                )
+                Spacer(modifier = Modifier.height(10.dp))
+            }
+        }
+        items(
+            taskList,
+            span = { GridItemSpan(maxLineSpan) }
+        ) { message ->
+            TaskCard(message)
+        }
+        //Recent rewards
+        item(span = { GridItemSpan(maxLineSpan) }) {
+            Column {
+                Text(
+                    text = "Recent Rewards",
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(8.dp)
+                )
+                Divider(
+                    color = Color.Gray,
+                    thickness = 1.dp,
+                    modifier = Modifier.padding(horizontal = 8.dp)
+                )
+                Spacer(modifier = Modifier.height(10.dp))
+            }
+        }
+        items(recentRewardsList) { reward ->
+            Box(
+                modifier = Modifier
+                    .padding(8.dp)
+                    .size(80.dp)
+                    .clip(RoundedCornerShape(16.dp))
+                    .background(Color.LightGray.copy(alpha = 0.7f))
+            ) {
+                Image(
+                    painter = painterResource(id = reward.imageId),
+                    contentDescription = null,
+                    modifier = Modifier.fillMaxSize()
+                )
+            }
+        }
     }
 }
 
@@ -64,43 +122,46 @@ fun CharacterInfo(
     exp: Float,
     modifier: Modifier = Modifier,
 ) {
-    Box(
-        modifier = modifier
-            .size(225.dp)
-            .clip(RoundedCornerShape(16.dp))
-            .background(Color.LightGray.copy(alpha = 0.7f))
-    ) {
-        Image(
-            painter = painterResource(R.drawable.character_image),
-            contentDescription = null,
+    Column(modifier = modifier.fillMaxWidth()) {
+        Box(
             modifier = Modifier
-                .size(150.dp)
-                .align(Alignment.TopCenter)
-        )
-        Column(
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .padding(16.dp)
+                .size(225.dp)
+                .clip(RoundedCornerShape(16.dp))
+                .background(Color.LightGray.copy(alpha = 0.7f))
+                .align(Alignment.CenterHorizontally)
         ) {
-            LinearProgressIndicator(
-                progress = health,
-                modifier = Modifier.fillMaxWidth()
+            Image(
+                painter = painterResource(R.drawable.character_image),
+                contentDescription = null,
+                modifier = Modifier
+                    .size(150.dp)
+                    .align(Alignment.TopCenter)
             )
-            Text(
-                text = "Health: ${health.times(100).toInt()}%",
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            LinearProgressIndicator(
-                progress = exp,
-                modifier = Modifier.fillMaxWidth()
-            )
-            Text(
-                text = "Exp: ${exp.times(100).toInt()}%",
-            )
+            Column(
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .padding(16.dp)
+            ) {
+                LinearProgressIndicator(
+                    progress = health,
+                    modifier = Modifier.fillMaxWidth()
+                )
+                Text(
+                    text = "Health: ${health.times(100).toInt()}%",
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                LinearProgressIndicator(
+                    progress = exp,
+                    modifier = Modifier.fillMaxWidth()
+                )
+                Text(
+                    text = "Exp: ${exp.times(100).toInt()}%",
+                )
+            }
         }
     }
 }
-
+/*
 @Composable
 fun PendingTasks(messages: List<Task>, modifier: Modifier = Modifier) {
     Column(modifier = modifier) {
@@ -123,7 +184,9 @@ fun PendingTasks(messages: List<Task>, modifier: Modifier = Modifier) {
         }
     }
 }
+*/
 
+/*
 @Composable
 fun RecentRewards(modifier: Modifier = Modifier) {
     Column(modifier = modifier) {
@@ -160,11 +223,11 @@ fun RecentRewards(modifier: Modifier = Modifier) {
         }
     }
 }
-
+*/
 @Preview(showBackground = true)
 @Composable
 fun HomePreview() {
     TaskHuntersTheme {
-        HomeScreen(innerPadding = PaddingValues())
+        //HomeScreen()
     }
 }
