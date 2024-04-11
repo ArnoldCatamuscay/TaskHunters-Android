@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TaskHunters</string>
+    <string name="placeholder_search">Buscar</string>
+    <string name="nav_home_text">Inicio</string>
+    <string name="nav_dailies_text">Dailies</string>
+    <string name="nav_to_do_s_text">To Do\'s</string>
+    <string name="nav_rewards_text">Recompensas</string>
+    <string name="nav_settings_text">Configuración</string>
+    <string name="nav_register_text">Registrarse</string>
+    <string name="pending_tasks_text">Tareas pendientes</string>
+    <string name="recent_rewards_text">Recompensas recientes</string>
+    <string name="username_placeholder">Usuario</string>
+    <string name="email_placeholder">Correo</string>
+    <string name="password_placeholder">Contraseña</string>
+    <string name="confirm_password_placeholder">Confirmar contraseña</string>
+</resources>

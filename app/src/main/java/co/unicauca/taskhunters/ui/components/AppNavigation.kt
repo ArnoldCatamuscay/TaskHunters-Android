@@ -83,7 +83,7 @@ fun NavigationDrawerContent(
         DRAWER_ITEMS.forEachIndexed { index, item ->
             NavigationDrawerItem(
                 selected = index == selectedItemIndex,
-                label = { Text(text = item.title) },
+                label = { Text(text = stringResource(id = item.title)) },
                 onClick = {
                     selectedItemIndex = index
                     scope.launch {
@@ -96,7 +96,7 @@ fun NavigationDrawerContent(
                         imageVector = if (index == selectedItemIndex)
                             item.selectedIcon
                         else item.unselectedIcon,
-                        contentDescription = item.title
+                        contentDescription = stringResource(id = item.title)
                     )
                 },
                 badge = {
@@ -173,7 +173,7 @@ fun BottomNavBar(
                     selectedIndex = index
                     onClickButton.invoke(item.route)
                 },
-                label = { Text(text = item.title) },
+                label = { Text(text = stringResource(id = item.title)) },
                 icon = {
                     BadgedBox(
                         badge = {
@@ -188,7 +188,7 @@ fun BottomNavBar(
                     ) {
                         Icon(
                             imageVector = item.selectedIcon,
-                            contentDescription = item.title
+                            contentDescription = stringResource(id = item.title)
                         )
                     }
                 }

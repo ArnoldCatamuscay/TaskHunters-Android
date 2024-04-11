@@ -7,4 +7,10 @@
     <string name="nav_rewards_text">Rewards</string>
     <string name="nav_settings_text">Settings</string>
     <string name="nav_register_text">Register</string>
+    <string name="pending_tasks_text">Pending Tasks</string>
+    <string name="recent_rewards_text">Recent Rewards</string>
+    <string name="username_placeholder">Username</string>
+    <string name="email_placeholder">Email</string>
+    <string name="password_placeholder">Password</string>
+    <string name="confirm_password_placeholder">Confirm password</string>
 </resources>
