@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">TaskHunters</string>
     <string name="placeholder_search">Search</string>
+    <string name="nav_home_text">Home</string>
+    <string name="nav_dailies_text">Dailies</string>
+    <string name="nav_to_do_s_text">To Do\'s</string>
+    <string name="nav_rewards_text">Rewards</string>
+    <string name="nav_settings_text">Settings</string>
+    <string name="nav_register_text">Register</string>
 </resources>
