@@ -82,7 +82,7 @@ fun DailiesScreen(
 fun DailiesTaskTitle(modifier: Modifier = Modifier) {
     Column(modifier = modifier) {
         Text(
-            text = stringResource(R.string.nav_to_do_s_text),
+            text = stringResource(R.string.nav_dailies_text),
             style = MaterialTheme.typography.titleMedium,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(8.dp)
