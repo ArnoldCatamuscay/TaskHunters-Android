@@ -44,7 +44,6 @@ fun HomeScreen(
     drawerState: DrawerState,
     scope: CoroutineScope
 ) {
-
     LazyVerticalGrid(
         columns = GridCells.Fixed(4),
         modifier = modifier
@@ -61,20 +60,7 @@ fun HomeScreen(
         }
         //Pending tasks
         item(span = { GridItemSpan(maxLineSpan) }) {
-            Column {
-                Text(
-                    text = stringResource(R.string.pending_tasks_text),
-                    style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(8.dp)
-                )
-                Divider(
-                    color = Color.Gray,
-                    thickness = 1.dp,
-                    modifier = Modifier.padding(horizontal = 8.dp)
-                )
-                Spacer(modifier = Modifier.height(10.dp))
-            }
+            PendingTasksTitle();
         }
         items(
             taskList,
@@ -84,20 +70,7 @@ fun HomeScreen(
         }
         //Recent rewards
         item(span = { GridItemSpan(maxLineSpan) }) {
-            Column {
-                Text(
-                    text = stringResource(R.string.recent_rewards_text),
-                    style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(8.dp)
-                )
-                Divider(
-                    color = Color.Gray,
-                    thickness = 1.dp,
-                    modifier = Modifier.padding(horizontal = 8.dp)
-                )
-                Spacer(modifier = Modifier.height(10.dp))
-            }
+            RecentRewardsTitle()
         }
         items(recentRewardsList) { reward ->
             Box(
@@ -162,12 +135,12 @@ fun CharacterInfo(
         }
     }
 }
-/*
+
 @Composable
-fun PendingTasks(messages: List<Task>, modifier: Modifier = Modifier) {
+fun PendingTasksTitle(modifier: Modifier = Modifier) {
     Column(modifier = modifier) {
         Text(
-            text = "Pending Tasks",
+            text = stringResource(R.string.pending_tasks_text),
             style = MaterialTheme.typography.titleMedium,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(8.dp)
@@ -178,21 +151,14 @@ fun PendingTasks(messages: List<Task>, modifier: Modifier = Modifier) {
             modifier = Modifier.padding(horizontal = 8.dp)
         )
         Spacer(modifier = Modifier.height(10.dp))
-        LazyColumn {
-            items(messages) { message ->
-                TaskCard(message)
-            }
-        }
     }
 }
-*/
 
-/*
 @Composable
-fun RecentRewards(modifier: Modifier = Modifier) {
+fun RecentRewardsTitle(modifier: Modifier = Modifier) {
     Column(modifier = modifier) {
         Text(
-            text = "Recent Rewards",
+            text = stringResource(R.string.recent_rewards_text),
             style = MaterialTheme.typography.titleMedium,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(8.dp)
@@ -202,29 +168,10 @@ fun RecentRewards(modifier: Modifier = Modifier) {
             thickness = 1.dp,
             modifier = Modifier.padding(horizontal = 8.dp)
         )
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(4),
-            modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp)
-        ) {
-            items(recentRewardsList) { resourceId ->
-                Box(
-                    modifier = Modifier
-                        .padding(8.dp)
-                        .size(80.dp)
-                        .clip(RoundedCornerShape(16.dp))
-                        .background(Color.LightGray.copy(alpha = 0.7f))
-                ) {
-                    Image(
-                        painter = painterResource(id = resourceId),
-                        contentDescription = null,
-                        modifier = Modifier.fillMaxSize()
-                    )
-                }
-            }
-        }
+        Spacer(modifier = Modifier.height(10.dp))
     }
 }
-*/
+
 @Preview(showBackground = true)
 @Composable
 fun HomePreview() {

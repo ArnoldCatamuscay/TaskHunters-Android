@@ -79,7 +79,10 @@ fun NavigationDrawerContent(
     var selectedItemIndex by rememberSaveable { mutableIntStateOf(0) }
 
     ModalDrawerSheet {
-        Text(text = "Task Hunters", modifier = Modifier.padding(16.dp))
+        Text(
+            text = stringResource(id = R.string.app_name),
+            modifier = Modifier.padding(16.dp)
+        )
         DRAWER_ITEMS.forEachIndexed { index, item ->
             NavigationDrawerItem(
                 selected = index == selectedItemIndex,
