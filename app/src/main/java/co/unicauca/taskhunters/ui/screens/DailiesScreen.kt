@@ -1,7 +1,5 @@
 package co.unicauca.taskhunters.ui.screens
 
-
-
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 
@@ -26,14 +24,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import co.unicauca.taskhunters.R
-import co.unicauca.taskhunters.data.DailiesList
+import co.unicauca.taskhunters.ui.components.CharacterInfo
 import co.unicauca.taskhunters.ui.components.TaskCard
+import co.unicauca.taskhunters.ui.components.TaskType
 import co.unicauca.taskhunters.ui.theme.TaskHuntersTheme
-
 
 @Composable
 fun DailiesScreen(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    tasksViewModel: TasksViewModel
 ) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(4),
@@ -69,10 +68,13 @@ fun DailiesScreen(
         }
 
         items(
-            DailiesList,
-            span = { GridItemSpan(maxLineSpan) }) {
-                message ->
-            TaskCard(message)
+            tasksViewModel.tasks.filter { it.taskType == TaskType.DAILY },
+            span = { GridItemSpan(maxLineSpan) }
+        ) { message ->
+            TaskCard(
+                task = message,
+                onChecked = { tasksViewModel.taskChecked(message) }
+            )
         }
     }
 }
@@ -81,6 +83,6 @@ fun DailiesScreen(
 @Composable
 fun DailiesPreview() {
     TaskHuntersTheme {
-        DailiesScreen()
+        //DailiesScreen()
     }
 }
