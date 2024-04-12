@@ -14,6 +14,7 @@ import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material.icons.outlined.Star
 import androidx.compose.ui.graphics.vector.ImageVector
+import co.unicauca.taskhunters.R
 
 enum class Screens {
     HomeScreen,
@@ -26,7 +27,7 @@ enum class Screens {
 
 data class NavigationItem(
     val route: String,
-    val title: String,
+    val title: Int,
     val selectedIcon: ImageVector,
     val unselectedIcon: ImageVector,
     val hasNews: Boolean,
@@ -36,28 +37,28 @@ data class NavigationItem(
 val DRAWER_ITEMS = listOf(
     NavigationItem(
         route = Screens.HomeScreen.name,
-        title = "Home",
+        title = R.string.nav_home_text,
         selectedIcon = Icons.Filled.Home,
         unselectedIcon = Icons.Outlined.Home,
         hasNews = false
     ),
     NavigationItem(
         route = Screens.DailiesScreen.name,
-        title = "Dailies",
+        title = R.string.nav_dailies_text,
         selectedIcon = Icons.Filled.DateRange,
         unselectedIcon = Icons.Outlined.DateRange,
         hasNews = false,
     ),
     NavigationItem(
         route = Screens.ToDoScreen.name,
-        title = "To Do's",
+        title = R.string.nav_to_do_s_text,
         selectedIcon = Icons.Filled.CheckCircle,
         unselectedIcon = Icons.Outlined.CheckCircle,
         hasNews = false
     ),
     NavigationItem(
         route = Screens.RewardsScreen.name,
-        title = "Rewards",
+        title = R.string.nav_rewards_text,
         selectedIcon = Icons.Filled.Star,
         unselectedIcon = Icons.Outlined.Star,
         hasNews = true,
@@ -65,14 +66,14 @@ val DRAWER_ITEMS = listOf(
     ),
     NavigationItem(
         route = Screens.SettingsScreen.name,
-        title = "Settings",
+        title = R.string.nav_settings_text,
         selectedIcon = Icons.Filled.Settings,
         unselectedIcon = Icons.Outlined.Settings,
         hasNews = false,
     ),
     NavigationItem(
         route = Screens.RegisterScreen.name,
-        title = "Register",
+        title = R.string.nav_register_text,
         selectedIcon = Icons.Filled.AccountCircle,
         unselectedIcon = Icons.Outlined.AccountCircle,
         hasNews = false,
@@ -82,28 +83,28 @@ val DRAWER_ITEMS = listOf(
 val BOTTOM_NAV_ITEMS = listOf(
     NavigationItem(
         route = Screens.HomeScreen.name,
-        title = "Home",
+        title = R.string.nav_home_text,
         selectedIcon = Icons.Filled.Home,
         unselectedIcon = Icons.Outlined.Home,
         hasNews = false
     ),
     NavigationItem(
         route = Screens.DailiesScreen.name,
-        title = "Dailies",
+        title = R.string.nav_dailies_text,
         selectedIcon = Icons.Filled.DateRange,
         unselectedIcon = Icons.Outlined.DateRange,
         hasNews = false,
     ),
     NavigationItem(
         route = Screens.ToDoScreen.name,
-        title = "To Do's",
+        title = R.string.nav_to_do_s_text,
         selectedIcon = Icons.Filled.CheckCircle,
         unselectedIcon = Icons.Outlined.CheckCircle,
         hasNews = false
     ),
     NavigationItem(
         route = Screens.RewardsScreen.name,
-        title = "Rewards",
+        title = R.string.nav_rewards_text,
         selectedIcon = Icons.Filled.Star,
         unselectedIcon = Icons.Outlined.Star,
         hasNews = true,

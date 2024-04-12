@@ -79,11 +79,14 @@ fun NavigationDrawerContent(
     var selectedItemIndex by rememberSaveable { mutableIntStateOf(0) }
 
     ModalDrawerSheet {
-        Text(text = "Task Hunters", modifier = Modifier.padding(16.dp))
+        Text(
+            text = stringResource(id = R.string.app_name),
+            modifier = Modifier.padding(16.dp)
+        )
         DRAWER_ITEMS.forEachIndexed { index, item ->
             NavigationDrawerItem(
                 selected = index == selectedItemIndex,
-                label = { Text(text = item.title) },
+                label = { Text(text = stringResource(id = item.title)) },
                 onClick = {
                     selectedItemIndex = index
                     scope.launch {
@@ -96,7 +99,7 @@ fun NavigationDrawerContent(
                         imageVector = if (index == selectedItemIndex)
                             item.selectedIcon
                         else item.unselectedIcon,
-                        contentDescription = item.title
+                        contentDescription = stringResource(id = item.title)
                     )
                 },
                 badge = {
@@ -173,7 +176,7 @@ fun BottomNavBar(
                     selectedIndex = index
                     onClickButton.invoke(item.route)
                 },
-                label = { Text(text = item.title) },
+                label = { Text(text = stringResource(id = item.title)) },
                 icon = {
                     BadgedBox(
                         badge = {
@@ -188,7 +191,7 @@ fun BottomNavBar(
                     ) {
                         Icon(
                             imageVector = item.selectedIcon,
-                            contentDescription = item.title
+                            contentDescription = stringResource(id = item.title)
                         )
                     }
                 }
