@@ -66,9 +66,7 @@ fun ToDoScreen(
                 Spacer(modifier = Modifier.height(10.dp))
             }
         }
-        item(span = { GridItemSpan(maxLineSpan) }) {
-            ToDoTaskTitle()
-        }
+
         items(ToDoList,
             span = { GridItemSpan(maxLineSpan) }) {
                 message ->
@@ -76,23 +74,7 @@ fun ToDoScreen(
         }
     }
 }
-@Composable
-fun ToDoTaskTitle(modifier: Modifier = Modifier) {
-    Column(modifier = modifier) {
-        Text(
-            text = stringResource(R.string.nav_to_do_s_text),
-            style = MaterialTheme.typography.titleMedium,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(8.dp)
-        )
-        Divider(
-            color = Color.Gray,
-            thickness = 1.dp,
-            modifier = Modifier.padding(horizontal = 8.dp)
-        )
-        Spacer(modifier = Modifier.height(10.dp))
-    }
-}
+
 @Preview(showBackground = true)
 @Composable
 fun ToDoPreview() {

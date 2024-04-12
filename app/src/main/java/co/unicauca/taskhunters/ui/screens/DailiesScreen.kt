@@ -50,7 +50,7 @@ fun DailiesScreen(
                 )
             }
         }
-        //To Do List
+        //Dailies List
         item(span = { GridItemSpan(maxLineSpan) }) {
             Column {
                 Text(
@@ -67,9 +67,7 @@ fun DailiesScreen(
                 Spacer(modifier = Modifier.height(10.dp))
             }
         }
-        item(span = { GridItemSpan(maxLineSpan) }) {
-            DailiesTaskTitle()
-        }
+
         items(
             DailiesList,
             span = { GridItemSpan(maxLineSpan) }) {
@@ -78,23 +76,7 @@ fun DailiesScreen(
         }
     }
 }
-@Composable
-fun DailiesTaskTitle(modifier: Modifier = Modifier) {
-    Column(modifier = modifier) {
-        Text(
-            text = stringResource(R.string.nav_dailies_text),
-            style = MaterialTheme.typography.titleMedium,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(8.dp)
-        )
-        Divider(
-            color = Color.Gray,
-            thickness = 1.dp,
-            modifier = Modifier.padding(horizontal = 8.dp)
-        )
-        Spacer(modifier = Modifier.height(10.dp))
-    }
-}
+
 @Preview(showBackground = true)
 @Composable
 fun DailiesPreview() {
