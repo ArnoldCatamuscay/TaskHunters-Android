@@ -31,3 +31,17 @@ val recentRewardsList = listOf(
     Reward(imageId = R.drawable.helmet_image, cost = 200),
     Reward(imageId = R.drawable.wooden_shield_image, cost = 120),
 )
+
+val DailiesList = listOf(
+    Task(title = "Do Homework", taskType = TaskType.DAILY),
+    Task(title = "Do Homework", taskType = TaskType.DAILY),
+    Task(title = "Do Homework", taskType = TaskType.DAILY),
+    Task(title = "Do Homework", taskType = TaskType.DAILY),
+)
+
+val ToDoList = listOf(
+    Task(title = "To Do Project", body = "Meeting with my friends", taskType = TaskType.TODO),
+    Task(title = "To Do Project", body = "Meeting with my friends", taskType = TaskType.TODO),
+    Task(title = "To Do Project", body = "Meeting with my friends", taskType = TaskType.TODO),
+    Task(title = "To Do Project", body = "Meeting with my friends", taskType = TaskType.TODO),
+)

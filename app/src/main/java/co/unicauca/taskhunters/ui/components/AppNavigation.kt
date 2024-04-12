@@ -33,9 +33,11 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import co.unicauca.taskhunters.R
+import co.unicauca.taskhunters.ui.screens.DailiesScreen
 import co.unicauca.taskhunters.ui.screens.HomeScreen
 import co.unicauca.taskhunters.ui.screens.RegisterScreen
 import co.unicauca.taskhunters.ui.screens.RewardsScreen
+import co.unicauca.taskhunters.ui.screens.ToDoScreen
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -53,10 +55,11 @@ fun NavigationGraph(
             HomeScreen(drawerState=drawerState, scope=scope)
         }
         composable(route = Screens.DailiesScreen.name) {
+            DailiesScreen()
 
         }
         composable(route = Screens.ToDoScreen.name) {
-
+            ToDoScreen()
         }
         composable(route = Screens.RewardsScreen.name) {
             RewardsScreen()
