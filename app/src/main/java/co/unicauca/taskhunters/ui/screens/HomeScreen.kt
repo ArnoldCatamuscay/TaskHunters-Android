@@ -60,7 +60,7 @@ fun HomeScreen(
         }
         //Pending tasks
         item(span = { GridItemSpan(maxLineSpan) }) {
-            PendingTasksTitle();
+            PendingTasksTitle()
         }
         items(
             taskList,
