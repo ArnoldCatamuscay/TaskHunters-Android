@@ -15,19 +15,15 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -35,14 +31,47 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import co.unicauca.taskhunters.R
+import co.unicauca.taskhunters.R.string as AppText
+import co.unicauca.taskhunters.R.drawable as AppDrawable
+import androidx.lifecycle.viewmodel.compose.viewModel
+import co.unicauca.taskhunters.ui.common.composable.InputField
 
 @Composable
-fun RegisterScreen(modifier: Modifier = Modifier) {
+fun RegisterScreen(
+    goBack: () -> Unit,
+    goToHome: () -> Unit,
+    registerViewModel: RegisterViewModel = viewModel()
+) {
+    // Whenever there's a change in the uiState value, a recomposition occurs
+    // for the composable function with registerUiState
+    val registerUiState by registerViewModel.uiState.collectAsState()
+
+    RegisterScreenContent(
+        uiState = registerUiState,
+        onUsernameChange = registerViewModel::onUsernameChange,
+        onEmailChange = registerViewModel::onEmailChange,
+        onPasswordChange = registerViewModel::onPasswordChange,
+        onConfirmPasswordChange = registerViewModel::onConfirmPasswordChange,
+        onClearFieldClick = registerViewModel::onClearFieldClick,
+        onReturnClick = { goBack() },
+        onRegisterClick = { registerViewModel.onRegisterClick(goToHome) },
+    )
+}
+
+@Composable
+fun RegisterScreenContent(
+    modifier: Modifier = Modifier,
+    uiState: RegisterUiState,
+    onUsernameChange: (String) -> Unit,
+    onEmailChange: (String) -> Unit,
+    onPasswordChange: (String) -> Unit,
+    onConfirmPasswordChange: (String) -> Unit,
+    onClearFieldClick: (String) -> Unit,
+    onReturnClick: () -> Unit,
+    onRegisterClick: () -> Unit,
+) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
@@ -50,17 +79,15 @@ fun RegisterScreen(modifier: Modifier = Modifier) {
     ) {
         Box {
             Image(
-                painter = painterResource(R.drawable.register_image),
+                painter = painterResource(AppDrawable.register_image),
                 contentDescription = "Register image",
                 contentScale = ContentScale.FillWidth,
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(380.dp)
-                //.padding(top = 8.dp)
-                //.clip(shape = RoundedCornerShape(48.dp))
             )
             IconButton(
-                onClick = { /* Return */ },
+                onClick = { onReturnClick() },
                 modifier = Modifier
                     .padding(12.dp)
                     .size(48.dp)
@@ -69,61 +96,46 @@ fun RegisterScreen(modifier: Modifier = Modifier) {
             ) {
                 Icon(
                     imageVector = Icons.Default.ArrowBack,
-                    contentDescription = "Back"
+                    contentDescription = "Go back"
                 )
             }
         }
         Spacer(modifier = Modifier.padding(12.dp))
-        InputField(placeholder = stringResource(R.string.username_placeholder))
-        InputField(placeholder = stringResource(R.string.email_placeholder))
+
         InputField(
-            placeholder = stringResource(R.string.password_placeholder),
+            placeholder = AppText.username_placeholder,
+            value = uiState.username,
+            onNewValue = onUsernameChange,
+            onClearClick = { onClearFieldClick("username") },
+        )
+
+        InputField(
+            placeholder = AppText.email_placeholder,
+            value = uiState.email,
+            onNewValue = onEmailChange,
+            onClearClick = { onClearFieldClick("email") },
+        )
+
+        InputField(
+            placeholder = AppText.password_placeholder,
+            value = uiState.password,
+            onNewValue = onPasswordChange,
+            onClearClick = { onClearFieldClick("password") },
             visualTransformation = PasswordVisualTransformation()
         )
+
         InputField(
-            placeholder = stringResource(R.string.confirm_password_placeholder),
+            placeholder = AppText.confirm_password_placeholder,
+            value = uiState.confirmPassword,
+            onNewValue = onConfirmPasswordChange,
+            onClearClick = { onClearFieldClick("confirm password") },
             visualTransformation = PasswordVisualTransformation()
         )
-        Button(onClick = { /*TODO*/ }) {
-            Text(text = stringResource(R.string.nav_register_text))
+
+        Button(onClick = { onRegisterClick() }) {
+            Text(text = stringResource(AppText.nav_register_text))
         }
     }
-}
-
-@Composable
-fun InputField(
-    placeholder: String,
-    visualTransformation: VisualTransformation = VisualTransformation.None
-) {
-    var text by remember { mutableStateOf(TextFieldValue("")) }
-    TextField(
-        value = text,
-        visualTransformation = visualTransformation,
-        onValueChange = {
-            text = it
-        },
-        placeholder = { Text(text = placeholder) },
-        //supportingText = { Text(text = "Supporting text") },
-        trailingIcon = {
-            if (text.text.isNotEmpty()) {
-                IconButton(
-                    onClick = { /* Clear */ },
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Clear,
-                        contentDescription = "Clear field"
-                    )
-                }
-            }
-        },
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(
-                start = 24.dp,
-                end = 24.dp
-            )
-    )
-    Spacer(modifier = Modifier.padding(8.dp))
 }
 
 @Preview
@@ -133,6 +145,6 @@ fun PreviewRegisterScreen() {
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
     ) {
-        RegisterScreen()
+        RegisterScreen(goBack = {}, goToHome = {})
     }
 }

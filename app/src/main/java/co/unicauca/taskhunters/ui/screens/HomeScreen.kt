@@ -16,7 +16,6 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Divider
-import androidx.compose.material3.DrawerState
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -36,27 +35,22 @@ import co.unicauca.taskhunters.data.taskList
 import co.unicauca.taskhunters.ui.components.TaskCard
 import co.unicauca.taskhunters.ui.components.TopSearchBar
 import co.unicauca.taskhunters.ui.theme.TaskHuntersTheme
-import kotlinx.coroutines.CoroutineScope
 
 @Composable
 fun HomeScreen(
-    modifier: Modifier = Modifier,
-    drawerState: DrawerState,
-    scope: CoroutineScope
+    onOpenDrawer: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(4),
         modifier = modifier
     ) {
         item(span = { GridItemSpan(maxLineSpan) }) {
-            TopSearchBar(drawerState = drawerState, scope = scope)
+            TopSearchBar(onMenuClick = onOpenDrawer)
         }
         //Character info
         item(span = { GridItemSpan(maxLineSpan) }) {
-            CharacterInfo(
-                health = 1f,
-                exp = 0.3f
-            )
+            CharacterInfo(health = 1f, exp = 0.3f)
         }
         //Pending tasks
         item(span = { GridItemSpan(maxLineSpan) }) {
@@ -176,6 +170,6 @@ fun RecentRewardsTitle(modifier: Modifier = Modifier) {
 @Composable
 fun HomePreview() {
     TaskHuntersTheme {
-        //HomeScreen()
+        HomeScreen(onOpenDrawer = {})
     }
 }

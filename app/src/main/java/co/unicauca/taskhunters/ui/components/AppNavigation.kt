@@ -29,10 +29,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import co.unicauca.taskhunters.R
+import co.unicauca.taskhunters.TaskHuntersAppState
 import co.unicauca.taskhunters.ui.screens.HomeScreen
 import co.unicauca.taskhunters.ui.screens.RegisterScreen
 import co.unicauca.taskhunters.ui.screens.RewardsScreen
@@ -41,16 +41,19 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun NavigationGraph(
-    navController: NavHostController,
-    drawerState: DrawerState,
+    appState: TaskHuntersAppState,
     scope: CoroutineScope
 ) {
     NavHost(
-        navController = navController,
+        navController = appState.navController,
         startDestination = Screens.HomeScreen.name
     ) {
         composable(route = Screens.HomeScreen.name) {
-            HomeScreen(drawerState=drawerState, scope=scope)
+            HomeScreen(onOpenDrawer = {
+                scope.launch {
+                    appState.drawerState.open()
+                }
+            })
         }
         composable(route = Screens.DailiesScreen.name) {
 
@@ -62,7 +65,10 @@ fun NavigationGraph(
             RewardsScreen()
         }
         composable(route = Screens.RegisterScreen.name) {
-            RegisterScreen()
+            RegisterScreen(
+                goBack = { appState.navController.navigateUp() },
+                goToHome = { appState.navController.navigate(Screens.HomeScreen.name) }
+            )
         }
         composable(route = Screens.SettingsScreen.name) {
 
@@ -116,8 +122,7 @@ fun NavigationDrawerContent(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopSearchBar(
-    drawerState: DrawerState,
-    scope: CoroutineScope
+    onMenuClick: () -> Unit,
 ) {
     var searchQuery by remember { mutableStateOf("") }
 
@@ -136,9 +141,7 @@ fun TopSearchBar(
         leadingIcon = {
             IconButton(
                 onClick = {
-                    scope.launch {
-                        drawerState.open()
-                    }
+                    onMenuClick()
                 },
                 modifier = Modifier.padding(start = 15.dp)
             ) {

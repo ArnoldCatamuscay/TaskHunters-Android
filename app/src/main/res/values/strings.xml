@@ -13,4 +13,9 @@
     <string name="email_placeholder">Email</string>
     <string name="password_placeholder">Password</string>
     <string name="confirm_password_placeholder">Confirm password</string>
+    <string name="generic_error">Something wrong happened. Please try again.</string>
+    <string name="email_error">Please insert a valid email</string>
+    <string name="password_match_error">Passwords do not match.</string>
+    <string name="password_error">Your password should have at least eight digits and include one digit, one lower case letter and one upper case letter.</string>
+    <string name="username_error">Invalid username</string>
 </resources>
