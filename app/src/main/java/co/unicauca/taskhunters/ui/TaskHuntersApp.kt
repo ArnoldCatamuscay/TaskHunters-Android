@@ -23,6 +23,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import co.unicauca.taskhunters.TaskHuntersAppState
@@ -31,6 +32,7 @@ import co.unicauca.taskhunters.ui.components.BOTTOM_NAV_ITEMS
 import co.unicauca.taskhunters.ui.components.BottomNavBar
 import co.unicauca.taskhunters.ui.components.NavigationDrawerContent
 import co.unicauca.taskhunters.ui.components.NavigationGraph
+import co.unicauca.taskhunters.ui.screens.TasksViewModel
 import co.unicauca.taskhunters.ui.theme.TaskHuntersTheme
 import kotlinx.coroutines.CoroutineScope
 
@@ -38,6 +40,7 @@ import kotlinx.coroutines.CoroutineScope
 fun TaskHuntersApp() {
     val drawerScope = rememberCoroutineScope()
     val appState = rememberAppState()
+    val taskViewModel: TasksViewModel = viewModel()
 
     ModalNavigationDrawer(
         drawerContent = {
@@ -71,7 +74,11 @@ fun TaskHuntersApp() {
                     .fillMaxSize()
                     .padding(innerPadding)
             ) {
-                NavigationGraph(appState = appState, scope = drawerScope)
+                NavigationGraph(
+                    appState = appState,
+                    scope = drawerScope,
+                    taskViewModel = taskViewModel
+                )
             }
         }
     }

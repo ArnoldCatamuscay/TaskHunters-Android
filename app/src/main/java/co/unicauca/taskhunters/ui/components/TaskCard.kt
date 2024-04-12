@@ -2,6 +2,7 @@ package co.unicauca.taskhunters.ui.components
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -24,52 +25,16 @@ import androidx.graphics.shapes.RoundedPolygon
 import androidx.graphics.shapes.toPath
 import co.unicauca.taskhunters.ui.theme.GreenCardTask
 import co.unicauca.taskhunters.ui.theme.OrangeCardTask
-enum class TaskType { DAILY, TODO }
-data class Task(val title: String, val body: String = "", val taskType: TaskType)
 
 @Composable
-fun TaskCard(task: Task, modifier: Modifier = Modifier) {
-    var bgColor = OrangeCardTask
-    if (task.taskType == TaskType.TODO) {
-        bgColor = GreenCardTask
-    }
+fun TaskCard(task: Task, onChecked: () -> Unit, modifier: Modifier = Modifier) {
     Row(
         modifier = modifier
             .padding(8.dp)
             .clip(RoundedCornerShape(8.dp))
             .background(Color.LightGray.copy(alpha = 0.7f))
     ) {
-        Box(
-            modifier = Modifier
-                .size(48.dp)
-                .background(bgColor)
-        ) {
-            Canvas(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(16.dp),
-                onDraw = {
-                    if (task.taskType == TaskType.TODO) {
-                        drawCircle(Color.LightGray, radius = size.minDimension / 1.5f)
-                    } else {
-                        val roundedPolygon = RoundedPolygon(
-                            numVertices = 4,
-                            radius = size.minDimension / 1,
-                            centerX = size.width / 2,
-                            centerY = size.height / 2,
-                            rounding = CornerRounding(
-                                size.minDimension / 10f,
-                                smoothing = 0.1f
-                            )
-                        )
-                        val roundedPolygonPath = roundedPolygon
-                            .toPath()
-                            .asComposePath()
-                        drawPath(roundedPolygonPath, color = Color.LightGray)
-                    }
-                }
-            )
-        }
+        TaskCheckBox(taskType = task.taskType, onClick = onChecked)
         Spacer(modifier = Modifier.padding(4.dp))
         Column {
             Text(
@@ -86,5 +51,49 @@ fun TaskCard(task: Task, modifier: Modifier = Modifier) {
                     .size(28.dp)
             )
         }
+    }
+}
+
+@Composable
+fun TaskCheckBox(
+    taskType: TaskType,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    var bgColor = OrangeCardTask
+    if (taskType == TaskType.TODO) {
+        bgColor = GreenCardTask
+    }
+    Box(
+        modifier = modifier
+            .size(48.dp)
+            .background(bgColor)
+    ) {
+        Canvas(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp)
+                .clickable { onClick() },
+            onDraw = {
+                if (taskType == TaskType.TODO) {
+                    drawCircle(Color.LightGray, radius = size.minDimension / 1.5f)
+                } else {
+                    val roundedPolygon = RoundedPolygon(
+                        numVertices = 4,
+                        radius = size.minDimension / 1,
+                        centerX = size.width / 2,
+                        centerY = size.height / 2,
+                        rounding = CornerRounding(
+                            size.minDimension / 10f,
+                            smoothing = 0.1f
+                        )
+                    )
+                    val roundedPolygonPath = roundedPolygon
+                        .toPath()
+                        .asComposePath()
+                    drawPath(roundedPolygonPath, color = Color.LightGray)
+                }
+            }
+        )
     }
 }

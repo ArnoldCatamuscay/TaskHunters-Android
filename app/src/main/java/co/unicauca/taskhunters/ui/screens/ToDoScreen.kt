@@ -1,6 +1,5 @@
 package co.unicauca.taskhunters.ui.screens
 
-
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 
@@ -26,9 +25,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import co.unicauca.taskhunters.R
 import co.unicauca.taskhunters.data.ToDoList
+import co.unicauca.taskhunters.ui.components.CharacterInfo
 import co.unicauca.taskhunters.ui.components.TaskCard
 import co.unicauca.taskhunters.ui.theme.TaskHuntersTheme
-
 
 @Composable
 fun ToDoScreen(
@@ -70,7 +69,7 @@ fun ToDoScreen(
         items(ToDoList,
             span = { GridItemSpan(maxLineSpan) }) {
                 message ->
-            TaskCard(message)
+            TaskCard(task = message, onChecked = {  })
         }
     }
 }
