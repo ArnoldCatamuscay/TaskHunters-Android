@@ -14,4 +14,9 @@
     <string name="email_placeholder">Correo</string>
     <string name="password_placeholder">Contraseña</string>
     <string name="confirm_password_placeholder">Confirmar contraseña</string>
+    <string name="generic_error">Ha ocurrido un error. Por favor, inténtelo de nuevo.</string>
+    <string name="email_error">Por favor introduzca una dirección de correo electrónico válida</string>
+    <string name="password_match_error">Las contraseñas no coinciden.</string>
+    <string name="password_error">Su contraseña debe tener al menos ocho dígitos e incluir un dígito, una letra minúscula y una letra mayúscula.</string>
+    <string name="username_error">Usuario inválido</string>
 </resources>
