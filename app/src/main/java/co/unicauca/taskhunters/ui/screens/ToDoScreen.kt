@@ -65,12 +65,12 @@ fun ToDoScreen(
                 Spacer(modifier = Modifier.height(10.dp))
             }
         }
-
+/*
         items(ToDoList,
             span = { GridItemSpan(maxLineSpan) }) {
                 message ->
             TaskCard(task = message, onChecked = {  })
-        }
+        }*/
     }
 }
 

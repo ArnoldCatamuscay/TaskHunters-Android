@@ -36,7 +36,7 @@ import co.unicauca.taskhunters.ui.theme.TaskHuntersTheme
 @Composable
 fun HomeScreen(
     onOpenDrawer: () -> Unit,
-    tasksViewModel: TasksViewModel,
+    //tasksViewModel: TasksViewModel,
     modifier: Modifier = Modifier
 ) {
     LazyVerticalGrid(
@@ -53,13 +53,13 @@ fun HomeScreen(
         //Pending tasks
         item(span = { GridItemSpan(maxLineSpan) }) {
             PendingTasksTitle()
-        }
+        }/*
         items(
             tasksViewModel.tasks,
             span = { GridItemSpan(maxLineSpan) }
         ) { task ->
             TaskCard(task = task, onChecked = { tasksViewModel.taskChecked(task) })
-        }
+        }*/
         //Recent rewards
         item(span = { GridItemSpan(maxLineSpan) }) {
             RecentRewardsTitle()

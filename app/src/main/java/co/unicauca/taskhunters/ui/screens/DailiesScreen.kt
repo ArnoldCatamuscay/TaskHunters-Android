@@ -2,12 +2,9 @@ package co.unicauca.taskhunters.ui.screens
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-
 import androidx.compose.foundation.layout.padding
-
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -16,6 +13,8 @@ import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -27,13 +26,17 @@ import co.unicauca.taskhunters.R
 import co.unicauca.taskhunters.ui.components.CharacterInfo
 import co.unicauca.taskhunters.ui.components.TaskCard
 import co.unicauca.taskhunters.ui.components.TaskType
-import co.unicauca.taskhunters.ui.theme.TaskHuntersTheme
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 @Composable
 fun DailiesScreen(
     modifier: Modifier = Modifier,
-    tasksViewModel: TasksViewModel
+    //goBack: () -> Unit,
+    coroutineScope: CoroutineScope,
+    dailiesViewModel: DailiesViewModel
 ) {
+    val dailiesUiState by dailiesViewModel.dailiesUiState.collectAsState()
     LazyVerticalGrid(
         columns = GridCells.Fixed(4),
         modifier = modifier
@@ -66,14 +69,18 @@ fun DailiesScreen(
                 Spacer(modifier = Modifier.height(10.dp))
             }
         }
-
         items(
-            tasksViewModel.tasks.filter { it.taskType == TaskType.DAILY },
+            dailiesUiState.dailiesList.filter { it.type == TaskType.DAILY },
+            //tasksViewModel.tasks.filter { it.taskType == TaskType.DAILY },
             span = { GridItemSpan(maxLineSpan) }
-        ) { message ->
+        ) { task ->
             TaskCard(
-                task = message,
-                onChecked = { tasksViewModel.taskChecked(message) }
+                task = task,
+                onChecked = {
+                    coroutineScope.launch {
+                        dailiesViewModel.taskChecked(task)
+                    }
+                }
             )
         }
     }
@@ -82,7 +89,5 @@ fun DailiesScreen(
 @Preview(showBackground = true)
 @Composable
 fun DailiesPreview() {
-    TaskHuntersTheme {
-        //DailiesScreen()
-    }
+
 }

@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.graphics.shapes.CornerRounding
 import androidx.graphics.shapes.RoundedPolygon
 import androidx.graphics.shapes.toPath
+import co.unicauca.taskhunters.model.Task
 import co.unicauca.taskhunters.ui.theme.GreenCardTask
 import co.unicauca.taskhunters.ui.theme.OrangeCardTask
 
@@ -34,7 +35,7 @@ fun TaskCard(task: Task, onChecked: () -> Unit, modifier: Modifier = Modifier) {
             .clip(RoundedCornerShape(8.dp))
             .background(Color.LightGray.copy(alpha = 0.7f))
     ) {
-        TaskCheckBox(taskType = task.taskType, onClick = onChecked)
+        TaskCheckBox(taskType = task.type, onClick = onChecked)
         Spacer(modifier = Modifier.padding(4.dp))
         Column {
             Text(
@@ -45,7 +46,7 @@ fun TaskCard(task: Task, onChecked: () -> Unit, modifier: Modifier = Modifier) {
                 fontWeight = FontWeight.Bold
             )
             Text(
-                text = task.body,
+                text = task.description,
                 modifier = Modifier
                     .fillMaxWidth()
                     .size(28.dp)

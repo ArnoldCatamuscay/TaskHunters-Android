@@ -5,10 +5,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import co.unicauca.taskhunters.TaskHuntersAppState
 import co.unicauca.taskhunters.ui.screens.DailiesScreen
+import co.unicauca.taskhunters.ui.screens.DailiesViewModel
+import co.unicauca.taskhunters.ui.screens.EditTaskScreen
+import co.unicauca.taskhunters.ui.screens.EditTasksViewModel
 import co.unicauca.taskhunters.ui.screens.HomeScreen
 import co.unicauca.taskhunters.ui.screens.RegisterScreen
 import co.unicauca.taskhunters.ui.screens.RewardsScreen
-import co.unicauca.taskhunters.ui.screens.TasksViewModel
 import co.unicauca.taskhunters.ui.screens.ToDoScreen
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -16,7 +18,8 @@ import kotlinx.coroutines.launch
 @Composable
 fun NavigationGraph(
     appState: TaskHuntersAppState,
-    taskViewModel: TasksViewModel,
+    taskViewModel: EditTasksViewModel,
+    dailiesViewModel: DailiesViewModel,
     scope: CoroutineScope
 ) {
     NavHost(
@@ -30,11 +33,15 @@ fun NavigationGraph(
                         appState.drawerState.open()
                     }
                 },
-                tasksViewModel = taskViewModel
+                //tasksViewModel = taskViewModel
             )
         }
         composable(route = Screens.DailiesScreen.name) {
-            DailiesScreen(tasksViewModel = taskViewModel)
+            DailiesScreen(
+                //goBack = { appState.navController.navigateUp() },
+                coroutineScope = scope,
+                dailiesViewModel = dailiesViewModel
+            )
 
         }
         composable(route = Screens.ToDoScreen.name) {
@@ -51,6 +58,24 @@ fun NavigationGraph(
         }
         composable(route = Screens.SettingsScreen.name) {
 
+        }
+        composable(route = Screens.EditDailyScreen.name) {
+            EditTaskScreen(
+                isDaily = true,
+                isCreated = false,
+                goBack = { appState.navController.navigateUp() },
+                coroutineScope = scope,
+                tasksViewModel = taskViewModel
+            )
+        }
+        composable(route = Screens.EditToDoScreen.name) {
+            EditTaskScreen(
+                isDaily = false,
+                isCreated = false,
+                goBack = { appState.navController.navigateUp() },
+                coroutineScope = scope,
+                tasksViewModel = taskViewModel
+            )
         }
     }
 }
