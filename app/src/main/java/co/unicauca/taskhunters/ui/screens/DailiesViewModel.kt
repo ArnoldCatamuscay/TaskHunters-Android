@@ -6,7 +6,6 @@ import co.unicauca.taskhunters.data.TasksRepository
 import co.unicauca.taskhunters.model.Task
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 

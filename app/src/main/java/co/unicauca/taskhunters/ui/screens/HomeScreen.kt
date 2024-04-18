@@ -29,7 +29,6 @@ import androidx.compose.ui.unit.dp
 import co.unicauca.taskhunters.R
 import co.unicauca.taskhunters.data.recentRewardsList
 import co.unicauca.taskhunters.ui.components.CharacterInfo
-import co.unicauca.taskhunters.ui.components.TaskCard
 import co.unicauca.taskhunters.ui.components.TopSearchBar
 import co.unicauca.taskhunters.ui.theme.TaskHuntersTheme
 
