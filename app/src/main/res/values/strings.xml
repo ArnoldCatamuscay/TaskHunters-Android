@@ -26,4 +26,5 @@
     <string name="delete_task">Delete task</string>
     <string name="update_task">Update task</string>
     <string name="fab_create_task">New Task</string>
+    <string name="fab_create_task_desc">Create new task</string>
 </resources>
