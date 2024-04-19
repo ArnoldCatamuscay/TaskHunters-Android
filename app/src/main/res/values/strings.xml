@@ -18,4 +18,11 @@
     <string name="password_match_error">Passwords do not match.</string>
     <string name="password_error">Your password should have at least eight digits and include one digit, one lower case letter and one upper case letter.</string>
     <string name="username_error">Invalid username</string>
+    <string name="new_task">New Task</string>
+    <string name="task_title">Title</string>
+    <string name="task_description">Description</string>
+    <string name="task_due_date">Due date</string>
+    <string name="create_task">Create</string>
+    <string name="delete_task">Delete task</string>
+    <string name="update_task">Update task</string>
 </resources>

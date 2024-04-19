@@ -19,4 +19,11 @@
     <string name="password_match_error">Las contraseñas no coinciden.</string>
     <string name="password_error">Su contraseña debe tener al menos ocho dígitos e incluir un dígito, una letra minúscula y una letra mayúscula.</string>
     <string name="username_error">Usuario inválido</string>
+    <string name="new_task">Nueva Tarea</string>
+    <string name="task_title">Título</string>
+    <string name="task_description">Descripción</string>
+    <string name="task_due_date">Fecha límite</string>
+    <string name="create_task">Crear</string>
+    <string name="delete_task">Eliminar Tarea</string>
+    <string name="update_task">Actualizar Tarea</string>
 </resources>

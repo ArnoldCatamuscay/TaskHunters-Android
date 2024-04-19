@@ -22,8 +22,15 @@ enum class Screens {
     ToDoScreen,
     RewardsScreen,
     SettingsScreen,
-    RegisterScreen
+    RegisterScreen,
+    EditDailyScreen,
+    EditToDoScreen
 }
+
+val FABScreensList = listOf(
+    Screens.DailiesScreen.toString(),
+    Screens.ToDoScreen.toString()
+)
 
 data class NavigationItem(
     val route: String,

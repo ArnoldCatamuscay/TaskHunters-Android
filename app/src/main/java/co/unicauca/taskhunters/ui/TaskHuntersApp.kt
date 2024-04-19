@@ -4,8 +4,13 @@ import android.content.res.Resources
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.DrawerValue
+import androidx.compose.material3.FabPosition
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.Scaffold
@@ -16,6 +21,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ReadOnlyComposable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
@@ -25,14 +31,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import co.unicauca.taskhunters.TaskHuntersAppState
 import co.unicauca.taskhunters.ui.common.snackbar.SnackBarManager
 import co.unicauca.taskhunters.ui.components.BOTTOM_NAV_ITEMS
 import co.unicauca.taskhunters.ui.components.BottomNavBar
+import co.unicauca.taskhunters.ui.components.FABScreensList
 import co.unicauca.taskhunters.ui.components.NavigationDrawerContent
 import co.unicauca.taskhunters.ui.components.NavigationGraph
-import co.unicauca.taskhunters.ui.screens.TasksViewModel
+import co.unicauca.taskhunters.ui.components.Screens
+import co.unicauca.taskhunters.ui.screens.DailiesViewModel
+import co.unicauca.taskhunters.ui.screens.EditTasksViewModel
 import co.unicauca.taskhunters.ui.theme.TaskHuntersTheme
 import kotlinx.coroutines.CoroutineScope
 
@@ -40,7 +50,10 @@ import kotlinx.coroutines.CoroutineScope
 fun TaskHuntersApp() {
     val drawerScope = rememberCoroutineScope()
     val appState = rememberAppState()
-    val taskViewModel: TasksViewModel = viewModel()
+    val taskViewModel: EditTasksViewModel = viewModel(factory = AppViewModelProvider.Factory)
+    val dailiesViewModel: DailiesViewModel = viewModel(factory = AppViewModelProvider.Factory)
+    val navBackStackEntry by appState.navController.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntry?.destination?.route
 
     ModalNavigationDrawer(
         drawerContent = {
@@ -62,6 +75,25 @@ fun TaskHuntersApp() {
                     }
                 )
             },
+            floatingActionButton = {
+                //Log.i("Current Route", "Current route: $currentRoute")
+                if (currentRoute in FABScreensList) {
+                    FloatingActionButton(
+                        onClick = {
+                            if(currentRoute==Screens.DailiesScreen.name){
+                                appState.navController.navigate(Screens.EditDailyScreen.name)
+                            } else if(currentRoute==Screens.ToDoScreen.name) {
+                                appState.navController.navigate(Screens.EditToDoScreen.name)
+                            }
+                        },
+                        containerColor = MaterialTheme.colorScheme.primary
+                    ) {
+                        //Text(text = "New Task")
+                        Icon(imageVector = Icons.Filled.Add, contentDescription = "Create new task")
+                    }
+                }
+            },
+            floatingActionButtonPosition = FabPosition.End,
             bottomBar = {
                 BottomNavBar(
                     BOTTOM_NAV_ITEMS,
@@ -77,7 +109,8 @@ fun TaskHuntersApp() {
                 NavigationGraph(
                     appState = appState,
                     scope = drawerScope,
-                    taskViewModel = taskViewModel
+                    taskViewModel = taskViewModel,
+                    dailiesViewModel = dailiesViewModel
                 )
             }
         }
