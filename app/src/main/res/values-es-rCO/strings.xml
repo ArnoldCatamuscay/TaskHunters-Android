@@ -27,4 +27,5 @@
     <string name="delete_task">Eliminar Tarea</string>
     <string name="update_task">Actualizar Tarea</string>
     <string name="fab_create_task">Nueva Tarea</string>
+    <string name="fab_create_task_desc">Crear nueva tarea</string>
 </resources>
