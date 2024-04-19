@@ -66,10 +66,7 @@ fun TaskCheckBox(
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    var bgColor = OrangeCardTask
-    if (taskType == TaskType.TODO) {
-        bgColor = GreenCardTask
-    }
+    val bgColor = if (taskType == TaskType.DAILY) OrangeCardTask else GreenCardTask
     Box(
         modifier = modifier
             .size(48.dp)

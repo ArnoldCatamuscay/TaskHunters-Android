@@ -15,14 +15,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import co.unicauca.taskhunters.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 @Composable
 fun NavigationDrawerContent(
-    navController: NavController,
+    onClickItem: (String) -> Unit,
     drawerState: DrawerState,
     scope: CoroutineScope
 ) {
@@ -42,7 +41,8 @@ fun NavigationDrawerContent(
                     scope.launch {
                         drawerState.close()
                     }
-                    navController.navigate(item.route)
+                    //navController.navigate(item.route)
+                    onClickItem.invoke(item.route)
                 },
                 icon = {
                     Icon(

@@ -25,6 +25,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import co.unicauca.taskhunters.R
+import co.unicauca.taskhunters.model.TaskType
 import co.unicauca.taskhunters.ui.common.composable.InputField
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -35,22 +36,26 @@ fun EditTaskScreen(
     isCreated: Boolean,
     goBack: () -> Unit,
     coroutineScope: CoroutineScope,
-    tasksViewModel: EditTasksViewModel
+    editTasksViewModel: EditTasksViewModel
 ) {
-    val taskUiState by tasksViewModel.taskUiState.collectAsState()
-    //val coroutineScope = rememberCoroutineScope()
+    val taskUiState by editTasksViewModel.taskUiState.collectAsState()
+    val taskType = if (isDaily) TaskType.DAILY else TaskType.TODO
+    editTasksViewModel.setTaskType(taskType)
     EditTaskScreenContent(
-        isDaily = isDaily,
         isCreated = isCreated,
         uiState = taskUiState,
-        onTaskTitleChange = tasksViewModel::onTaskTitleChange,
-        onTaskDescChange = tasksViewModel::onTaskDescChange,
-        onDueDateChange = tasksViewModel::onDueDateChange,
-        onClearFieldClick = tasksViewModel::onClearFieldClick,
+        onTaskTitleChange = editTasksViewModel::onTaskTitleChange,
+        onTaskDescChange = editTasksViewModel::onTaskDescChange,
+        onDueDateChange = editTasksViewModel::onDueDateChange,
+        onClearFieldClick = editTasksViewModel::onClearFieldClick,
         onReturnClick = { goBack() },
         onCreateClick = {
             coroutineScope.launch {
-                tasksViewModel.saveTask(goBack)
+                if (isDaily) {
+                    editTasksViewModel.saveDaily(goBack)
+                } else {
+                    editTasksViewModel.saveToDo(goBack)
+                }
             }
         },
         onUpdateClick = {},
@@ -58,12 +63,9 @@ fun EditTaskScreen(
     )
 }
 
-//@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EditTaskScreenContent(
-    isDaily: Boolean,
     isCreated: Boolean,
-    //modifier: Modifier = Modifier,
     uiState: TaskUiState,
     onTaskTitleChange: (String) -> Unit,
     onTaskDescChange: (String) -> Unit,
@@ -83,10 +85,10 @@ fun EditTaskScreenContent(
                 Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "Return")
             }
             Text(
-                modifier = Modifier.weight(0.2f),
+                modifier = Modifier.weight(0.3f),
                 text = stringResource(R.string.new_task)
             )
-            Spacer(modifier = Modifier.weight(0.7f))
+            Spacer(modifier = Modifier.weight(0.6f))
         }
         Spacer(modifier = Modifier.padding(8.dp))
         //Task title
@@ -104,14 +106,13 @@ fun EditTaskScreenContent(
             onNewValue = onTaskDescChange,
             onClearClick = { onClearFieldClick("description") },
         )
-        if (!isDaily) {
-            //Due date
+        if(uiState.type == TaskType.TODO){
             Spacer(modifier = Modifier.padding(8.dp))
             /*val dateState = rememberDatePickerState()
             DatePicker(state = dateState)*/
             InputField(
                 placeholder = R.string.task_due_date,
-                value = uiState.dueTime,
+                value = uiState.dueDate,
                 onNewValue = onDueDateChange,
                 onClearClick = { onClearFieldClick("dueDate") },
             )
@@ -170,16 +171,28 @@ fun EditTaskScreenContent(
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewTaskScreen() {
-    /*val task = Task(
+fun PreviewEditTaskScreenContent() {
+    val taskUiState = TaskUiState(
         id = 0,
-        title = "To Do Project",
+        title = "",
+        type = TaskType.TODO,
         dueDate = "",
         dueTime = "",
-        description = "Meeting with my friends",
+        description = "",
         flag = false,
         completed = false,
         userId = ""
-    )*/
-    //EditTaskScreen(isDaily = false, onSave = {}, onCancel = {}, onReturn = {})
+    )
+    EditTaskScreenContent(
+        isCreated = false,
+        uiState = taskUiState,
+        onTaskTitleChange = {},
+        onTaskDescChange = {},
+        onDueDateChange = {},
+        onClearFieldClick = {},
+        onReturnClick = {},
+        onCreateClick = {},
+        onUpdateClick = {},
+        onDeleteClick = {}
+    )
 }

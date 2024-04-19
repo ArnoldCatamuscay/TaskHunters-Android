@@ -18,6 +18,8 @@ import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -28,16 +30,21 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import co.unicauca.taskhunters.R
 import co.unicauca.taskhunters.ui.components.CharacterInfo
+import co.unicauca.taskhunters.ui.components.TaskCard
 import co.unicauca.taskhunters.ui.components.TopSearchBar
 import co.unicauca.taskhunters.ui.screens.rewards.recentRewardsList
 import co.unicauca.taskhunters.ui.theme.TaskHuntersTheme
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 @Composable
 fun HomeScreen(
     onOpenDrawer: () -> Unit,
-    //tasksViewModel: TasksViewModel,
+    coroutineScope: CoroutineScope,
+    homeViewModel: HomeViewModel,
     modifier: Modifier = Modifier
 ) {
+    val homeUiState by homeViewModel.homeUiState.collectAsState()
     LazyVerticalGrid(
         columns = GridCells.Fixed(4),
         modifier = modifier
@@ -52,13 +59,20 @@ fun HomeScreen(
         //Pending tasks
         item(span = { GridItemSpan(maxLineSpan) }) {
             PendingTasksTitle()
-        }/*
+        }
         items(
-            tasksViewModel.tasks,
+            homeUiState.taskList,
             span = { GridItemSpan(maxLineSpan) }
         ) { task ->
-            TaskCard(task = task, onChecked = { tasksViewModel.taskChecked(task) })
-        }*/
+            TaskCard(
+                task = task,
+                onChecked = {
+                    coroutineScope.launch {
+                        homeViewModel.taskChecked(task)
+                    }
+                }
+            )
+        }
         //Recent rewards
         item(span = { GridItemSpan(maxLineSpan) }) {
             RecentRewardsTitle()

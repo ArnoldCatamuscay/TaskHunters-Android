@@ -23,7 +23,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import co.unicauca.taskhunters.R
-import co.unicauca.taskhunters.model.TaskType
 import co.unicauca.taskhunters.ui.components.CharacterInfo
 import co.unicauca.taskhunters.ui.components.TaskCard
 import kotlinx.coroutines.CoroutineScope
@@ -32,7 +31,6 @@ import kotlinx.coroutines.launch
 @Composable
 fun DailiesScreen(
     modifier: Modifier = Modifier,
-    //goBack: () -> Unit,
     coroutineScope: CoroutineScope,
     dailiesViewModel: DailiesViewModel
 ) {
@@ -70,8 +68,7 @@ fun DailiesScreen(
             }
         }
         items(
-            dailiesUiState.dailiesList.filter { it.type == TaskType.DAILY },
-            //tasksViewModel.tasks.filter { it.taskType == TaskType.DAILY },
+            dailiesUiState.taskList,
             span = { GridItemSpan(maxLineSpan) }
         ) { task ->
             TaskCard(

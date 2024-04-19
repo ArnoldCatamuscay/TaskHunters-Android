@@ -13,6 +13,16 @@ interface TasksRepository {
     fun getAllTasksStream(): Flow<List<Task>>
 
     /**
+     * Retrieve all the dailies from the given data source.
+     */
+    fun getAllDailiesStream(): Flow<List<Task>>
+
+    /**
+     * Retrieve all the to do's from the given data source.
+     */
+    fun getAllToDoStream(): Flow<List<Task>>
+
+    /**
      * Retrieve an task from the given data source that matches with the [id].
      */
     fun getTaskStream(id: Int): Flow<Task?>
