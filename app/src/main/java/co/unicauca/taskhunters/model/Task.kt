@@ -2,7 +2,6 @@ package co.unicauca.taskhunters.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import co.unicauca.taskhunters.ui.components.TaskType
 
 @Entity(tableName = "tasks")
 data class Task(

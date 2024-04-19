@@ -24,11 +24,16 @@ import androidx.graphics.shapes.CornerRounding
 import androidx.graphics.shapes.RoundedPolygon
 import androidx.graphics.shapes.toPath
 import co.unicauca.taskhunters.model.Task
+import co.unicauca.taskhunters.model.TaskType
 import co.unicauca.taskhunters.ui.theme.GreenCardTask
 import co.unicauca.taskhunters.ui.theme.OrangeCardTask
 
 @Composable
-fun TaskCard(task: Task, onChecked: () -> Unit, modifier: Modifier = Modifier) {
+fun TaskCard(
+    task: Task,
+    onChecked: () -> Unit,
+    modifier: Modifier = Modifier
+) {
     Row(
         modifier = modifier
             .padding(8.dp)

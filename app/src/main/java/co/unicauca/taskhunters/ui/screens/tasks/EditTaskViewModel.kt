@@ -1,9 +1,9 @@
-package co.unicauca.taskhunters.ui.screens
+package co.unicauca.taskhunters.ui.screens.tasks
 
 import androidx.lifecycle.ViewModel
 import co.unicauca.taskhunters.data.TasksRepository
 import co.unicauca.taskhunters.model.Task
-import co.unicauca.taskhunters.ui.components.TaskType
+import co.unicauca.taskhunters.model.TaskType
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -95,7 +95,7 @@ fun TaskUiState.toTask(): Task = Task(
 /**
  * Extension function to convert Task to TaskUiState
  */
-fun Task.toTaskUiState(): TaskUiState = TaskUiState(
+/*fun Task.toTaskUiState(): TaskUiState = TaskUiState(
     id = id,
     title = title,
     type = type,
@@ -105,4 +105,4 @@ fun Task.toTaskUiState(): TaskUiState = TaskUiState(
     flag = flag,
     completed = completed,
     userId = userId
-)
+)*/

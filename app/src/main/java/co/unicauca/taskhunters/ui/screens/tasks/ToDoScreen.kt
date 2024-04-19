@@ -1,4 +1,4 @@
-package co.unicauca.taskhunters.ui.screens
+package co.unicauca.taskhunters.ui.screens.tasks
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer

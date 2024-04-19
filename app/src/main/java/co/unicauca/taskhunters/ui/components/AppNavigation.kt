@@ -4,14 +4,14 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import co.unicauca.taskhunters.TaskHuntersAppState
-import co.unicauca.taskhunters.ui.screens.DailiesScreen
-import co.unicauca.taskhunters.ui.screens.DailiesViewModel
-import co.unicauca.taskhunters.ui.screens.EditTaskScreen
-import co.unicauca.taskhunters.ui.screens.EditTasksViewModel
-import co.unicauca.taskhunters.ui.screens.HomeScreen
-import co.unicauca.taskhunters.ui.screens.RegisterScreen
-import co.unicauca.taskhunters.ui.screens.RewardsScreen
-import co.unicauca.taskhunters.ui.screens.ToDoScreen
+import co.unicauca.taskhunters.ui.screens.tasks.DailiesScreen
+import co.unicauca.taskhunters.ui.screens.tasks.DailiesViewModel
+import co.unicauca.taskhunters.ui.screens.tasks.EditTaskScreen
+import co.unicauca.taskhunters.ui.screens.tasks.EditTasksViewModel
+import co.unicauca.taskhunters.ui.screens.home.HomeScreen
+import co.unicauca.taskhunters.ui.screens.register.RegisterScreen
+import co.unicauca.taskhunters.ui.screens.rewards.RewardsScreen
+import co.unicauca.taskhunters.ui.screens.tasks.ToDoScreen
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -33,12 +33,10 @@ fun NavigationGraph(
                         appState.drawerState.open()
                     }
                 },
-                //tasksViewModel = taskViewModel
             )
         }
         composable(route = Screens.DailiesScreen.name) {
             DailiesScreen(
-                //goBack = { appState.navController.navigateUp() },
                 coroutineScope = scope,
                 dailiesViewModel = dailiesViewModel
             )

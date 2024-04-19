@@ -41,8 +41,8 @@ import co.unicauca.taskhunters.ui.components.FABScreensList
 import co.unicauca.taskhunters.ui.components.NavigationDrawerContent
 import co.unicauca.taskhunters.ui.components.NavigationGraph
 import co.unicauca.taskhunters.ui.components.Screens
-import co.unicauca.taskhunters.ui.screens.DailiesViewModel
-import co.unicauca.taskhunters.ui.screens.EditTasksViewModel
+import co.unicauca.taskhunters.ui.screens.tasks.DailiesViewModel
+import co.unicauca.taskhunters.ui.screens.tasks.EditTasksViewModel
 import co.unicauca.taskhunters.ui.theme.TaskHuntersTheme
 import kotlinx.coroutines.CoroutineScope
 

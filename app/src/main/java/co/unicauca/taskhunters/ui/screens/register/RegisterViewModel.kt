@@ -1,4 +1,4 @@
-package co.unicauca.taskhunters.ui.screens
+package co.unicauca.taskhunters.ui.screens.register
 
 import androidx.lifecycle.ViewModel
 import co.unicauca.taskhunters.ui.common.ext.isValidEmail
