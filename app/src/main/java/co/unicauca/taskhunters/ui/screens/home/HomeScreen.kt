@@ -1,4 +1,4 @@
-package co.unicauca.taskhunters.ui.screens
+package co.unicauca.taskhunters.ui.screens.home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -27,9 +27,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import co.unicauca.taskhunters.R
-import co.unicauca.taskhunters.data.recentRewardsList
 import co.unicauca.taskhunters.ui.components.CharacterInfo
 import co.unicauca.taskhunters.ui.components.TopSearchBar
+import co.unicauca.taskhunters.ui.screens.rewards.recentRewardsList
 import co.unicauca.taskhunters.ui.theme.TaskHuntersTheme
 
 @Composable

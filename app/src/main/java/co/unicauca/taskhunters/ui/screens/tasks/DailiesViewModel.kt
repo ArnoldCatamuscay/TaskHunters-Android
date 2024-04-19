@@ -1,4 +1,4 @@
-package co.unicauca.taskhunters.ui.screens
+package co.unicauca.taskhunters.ui.screens.tasks
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -35,8 +35,3 @@ class DailiesViewModel(private val tasksRepository: TasksRepository) : ViewModel
         tasksRepository.deleteTask(task)
     }
 }
-
-/**
- * Ui State for DailiesScreen
- */
-data class DailiesUiState(val dailiesList: List<Task> = listOf())

@@ -1,4 +1,4 @@
-package co.unicauca.taskhunters.ui.screens
+package co.unicauca.taskhunters.ui.screens.register
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

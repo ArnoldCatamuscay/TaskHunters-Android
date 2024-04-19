@@ -1,4 +1,4 @@
-package co.unicauca.taskhunters.ui.screens
+package co.unicauca.taskhunters.ui.screens.rewards
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -30,7 +30,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import co.unicauca.taskhunters.R
-import co.unicauca.taskhunters.data.recentRewardsList
 import co.unicauca.taskhunters.ui.components.CharacterInfo
 import co.unicauca.taskhunters.ui.theme.TaskHuntersTheme
 
@@ -105,6 +104,23 @@ fun RewardsScreen(modifier: Modifier = Modifier) {
         }
     }
 }
+
+data class Reward(val imageId: Int, val cost: Int)
+
+val recentRewardsList = listOf(
+    Reward(imageId = R.drawable.silver_sword_image, cost = 250),
+    Reward(imageId = R.drawable.boots_image, cost = 175),
+    Reward(imageId = R.drawable.helmet_image, cost = 200),
+    Reward(imageId = R.drawable.wooden_shield_image, cost = 120),
+    Reward(imageId = R.drawable.silver_sword_image, cost = 250),
+    Reward(imageId = R.drawable.boots_image, cost = 175),
+    Reward(imageId = R.drawable.helmet_image, cost = 200),
+    Reward(imageId = R.drawable.wooden_shield_image, cost = 120),
+    Reward(imageId = R.drawable.silver_sword_image, cost = 250),
+    Reward(imageId = R.drawable.boots_image, cost = 175),
+    Reward(imageId = R.drawable.helmet_image, cost = 200),
+    Reward(imageId = R.drawable.wooden_shield_image, cost = 120),
+)
 
 @Preview(showBackground = true)
 @Composable

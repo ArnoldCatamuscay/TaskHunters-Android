@@ -6,8 +6,8 @@ import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import co.unicauca.taskhunters.TaskHuntersApplication
-import co.unicauca.taskhunters.ui.screens.DailiesViewModel
-import co.unicauca.taskhunters.ui.screens.EditTasksViewModel
+import co.unicauca.taskhunters.ui.screens.tasks.DailiesViewModel
+import co.unicauca.taskhunters.ui.screens.tasks.EditTasksViewModel
 
 /**
  * Provides Factory to create instance of ViewModel for the entire TaskHunters app
