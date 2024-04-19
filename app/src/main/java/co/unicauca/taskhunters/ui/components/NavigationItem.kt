@@ -23,8 +23,8 @@ enum class Screens {
     RewardsScreen,
     SettingsScreen,
     RegisterScreen,
-    EditDailyScreen,
-    EditToDoScreen
+    CreateDailyScreen,
+    CreateToDoScreen
 }
 
 val FABScreensList = listOf(

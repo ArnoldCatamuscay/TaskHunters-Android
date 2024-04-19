@@ -18,7 +18,7 @@ import androidx.compose.ui.res.stringResource
 @Composable
 fun BottomNavBar(
     items: List<NavigationItem>,
-    onClickButton: (String) -> Unit = {}
+    onClickItem: (String) -> Unit = {}
 ) {
     var selectedIndex by remember { mutableIntStateOf(0) }
 
@@ -28,7 +28,7 @@ fun BottomNavBar(
                 selected = false,
                 onClick = {
                     selectedIndex = index
-                    onClickButton.invoke(item.route)
+                    onClickItem.invoke(item.route)
                 },
                 label = { Text(text = stringResource(id = item.title)) },
                 icon = {

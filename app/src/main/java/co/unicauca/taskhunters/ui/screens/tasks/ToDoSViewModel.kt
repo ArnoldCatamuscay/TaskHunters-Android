@@ -9,20 +9,19 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 
-class DailiesViewModel(private val tasksRepository: TasksRepository) : ViewModel() {
-
+class ToDoSViewModel(private val tasksRepository: TasksRepository) : ViewModel() {
     /**
-     * Holds dailies ui state. The list of dailies are retrieved from [TasksRepository]
+     * Holds dailies ui state. The list of to do's are retrieved from [TasksRepository]
      * and mapped to [TasksListUiState]
      */
-    private val _dailiesUiState = tasksRepository.getAllDailiesStream()
+    private val _toDoSUiState = tasksRepository.getAllToDoStream()
         .map { TasksListUiState(it) }
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(TIMEOUT_MILLIS),
             initialValue = TasksListUiState()
         )
-    var dailiesUiState: StateFlow<TasksListUiState> = _dailiesUiState
+    var toDoSUiState: StateFlow<TasksListUiState> = _toDoSUiState
 
     companion object {
         private const val TIMEOUT_MILLIS = 5_000L

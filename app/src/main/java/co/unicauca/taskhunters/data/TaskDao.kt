@@ -25,4 +25,10 @@ interface TaskDao {
 
     @Query("SELECT * from tasks ORDER BY title ASC")
     fun getAllTasks(): Flow<List<Task>>
+
+    @Query("SELECT * from tasks t Where t.type == 'DAILY' ORDER BY title ASC")
+    fun getAllDailies(): Flow<List<Task>>
+
+    @Query("SELECT * from tasks t Where t.type == 'TODO' ORDER BY title ASC")
+    fun getAllToDoS(): Flow<List<Task>>
 }
