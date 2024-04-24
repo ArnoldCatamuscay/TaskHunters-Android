@@ -7,7 +7,6 @@ import co.unicauca.taskhunters.model.Task
 import co.unicauca.taskhunters.model.TaskType
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 
@@ -17,7 +16,6 @@ class HomeViewModel(private val tasksRepository: TasksRepository) : ViewModel() 
      * and mapped to [HomeUiState]
      */
     private val _homeUiState = tasksRepository.getAllTasksByFlagStream()
-        //.filter { !it. }
         .map { HomeUiState(it) }
         .stateIn(
             scope = viewModelScope,

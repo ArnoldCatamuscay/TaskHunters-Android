@@ -1,11 +1,11 @@
 package co.unicauca.taskhunters.ui.components
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import co.unicauca.taskhunters.TaskHuntersAppState
 import co.unicauca.taskhunters.model.Task
+import co.unicauca.taskhunters.model.TaskType
 import co.unicauca.taskhunters.ui.screens.tasks.DailiesScreen
 import co.unicauca.taskhunters.ui.screens.tasks.DailiesViewModel
 import co.unicauca.taskhunters.ui.screens.tasks.EditTaskScreen
@@ -42,7 +42,28 @@ fun NavigationGraph(
                     }
                 },
                 coroutineScope = scope,
-                homeViewModel = homeViewModel
+                homeViewModel = homeViewModel,
+                goToEdit = {
+                    val gson: Gson = GsonBuilder().create()
+                    val taskJson = gson.toJson(it)
+                    /* Replacing {task} with taskJson */
+                    appState.navController.navigate(
+                        if (it.type == TaskType.DAILY) {
+                            "${Screens.EditDailyScreen.name}/{task}" //Just modify your route accordingly
+                                .replace(
+                                    oldValue = "{task}",
+                                    newValue = taskJson
+                                )
+                        } else {
+                            "${Screens.EditToDoScreen.name}/{task}" //Just modify your route accordingly
+                                .replace(
+                                    oldValue = "{task}",
+                                    newValue = taskJson
+                                )
+                        }
+
+                    )
+                }
             )
         }
         composable(route = Screens.DailiesScreen.name) {
@@ -67,7 +88,19 @@ fun NavigationGraph(
         composable(route = Screens.ToDoScreen.name) {
             ToDoScreen(
                 coroutineScope = scope,
-                toDoSViewModel = toDoSViewModel
+                toDoSViewModel = toDoSViewModel,
+                goToEdit = {
+                    val gson: Gson = GsonBuilder().create()
+                    val taskJson = gson.toJson(it)
+                    /* Replacing {task} with taskJson */
+                    appState.navController.navigate(
+                        "${Screens.EditToDoScreen.name}/{task}" //Just modify your route accordingly
+                            .replace(
+                                oldValue = "{task}",
+                                newValue = taskJson
+                            )
+                    )
+                }
             )
         }
         composable(route = Screens.RewardsScreen.name) {
@@ -83,23 +116,22 @@ fun NavigationGraph(
 
         }
         composable(route = Screens.CreateDailyScreen.name) {
-            /*EditTaskScreen(
-                //task = it,
+            EditTaskScreen(
                 isDaily = true,
                 isCreated = false,
                 goBack = { appState.navController.navigateUp() },
                 coroutineScope = scope,
                 editTasksViewModel = editTasksViewModel
-            )*/
+            )
         }
         composable(route = Screens.CreateToDoScreen.name) {
-           /* EditTaskScreen(
+            EditTaskScreen(
                 isDaily = false,
                 isCreated = false,
                 goBack = { appState.navController.navigateUp() },
                 coroutineScope = scope,
                 editTasksViewModel = editTasksViewModel
-            )*/
+            )
         }
         composable(route = "${Screens.EditDailyScreen.name}/{task}") { navBackStackEntry ->
             // Creating gson object
@@ -109,7 +141,6 @@ fun NavigationGraph(
             // Convert json string to the User data class object
             val taskObject = gson.fromJson(taskJson, Task::class.java)
             //DetailScreen(user = userObject)
-            Log.d("taskObject",taskObject.toString())
             EditTaskScreen(
                 task = taskObject,
                 isDaily = true,
@@ -119,14 +150,21 @@ fun NavigationGraph(
                 editTasksViewModel = editTasksViewModel
             )
         }
-        composable(route = Screens.EditToDoScreen.name) {
-            /*EditTaskScreen(
+        composable(route = "${Screens.EditToDoScreen.name}/{task}") {navBackStackEntry ->
+            // Creating gson object
+            val gson: Gson = GsonBuilder().create()
+            /* Extracting the user object json from the route */
+            val taskJson = navBackStackEntry.arguments?.getString("task")
+            // Convert json string to the User data class object
+            val taskObject = gson.fromJson(taskJson, Task::class.java)
+            EditTaskScreen(
+                task = taskObject,
                 isDaily = false,
                 isCreated = true,
                 goBack = { appState.navController.navigateUp() },
                 coroutineScope = scope,
                 editTasksViewModel = editTasksViewModel
-            )*/
+            )
         }
     }
 }

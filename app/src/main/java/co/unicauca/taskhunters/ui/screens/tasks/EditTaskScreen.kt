@@ -34,7 +34,7 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun EditTaskScreen(
-    task: Task,
+    task: Task = Task(type = TaskType.DAILY),
     isDaily: Boolean,
     isCreated: Boolean,
     goBack: () -> Unit,
@@ -42,10 +42,10 @@ fun EditTaskScreen(
     editTasksViewModel: EditTasksViewModel
 ) {
     val taskUiState by editTasksViewModel.taskUiState.collectAsState()
-    val taskType = if (isDaily) TaskType.DAILY else TaskType.TODO
     LaunchedEffect(key1 = task) {
         editTasksViewModel.uploadTask(task)
     }
+    val taskType = if (isDaily) TaskType.DAILY else TaskType.TODO
     editTasksViewModel.setTaskType(taskType)
     EditTaskScreenContent(
         isCreated = isCreated,
