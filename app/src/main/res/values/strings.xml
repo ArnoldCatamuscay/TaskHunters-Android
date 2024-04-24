@@ -27,4 +27,11 @@
     <string name="update_task">Update task</string>
     <string name="fab_create_task">New Task</string>
     <string name="fab_create_task_desc">Create new task</string>
+    <string name="confirm_date">Confirm</string>
+    <string name="task_title_error">Enter a title for the task</string>
+    <string name="task_due_time_error">Enter a due date for the task</string>
+    <string name="new_daily">New Daily</string>
+    <string name="new_to_do">New To Do</string>
+    <string name="edit_daily">Edit Daily</string>
+    <string name="edit_to_do">Edit To Do</string>
 </resources>

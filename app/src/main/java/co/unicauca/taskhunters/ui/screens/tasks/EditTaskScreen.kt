@@ -11,10 +11,13 @@ import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -28,6 +31,7 @@ import androidx.compose.ui.unit.dp
 import co.unicauca.taskhunters.R
 import co.unicauca.taskhunters.model.Task
 import co.unicauca.taskhunters.model.TaskType
+import co.unicauca.taskhunters.ui.common.composable.DateField
 import co.unicauca.taskhunters.ui.common.composable.InputField
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -43,10 +47,10 @@ fun EditTaskScreen(
 ) {
     val taskUiState by editTasksViewModel.taskUiState.collectAsState()
     LaunchedEffect(key1 = task) {
-        editTasksViewModel.uploadTask(task)
+        editTasksViewModel.loadTaskData(task, isDaily)
     }
-    val taskType = if (isDaily) TaskType.DAILY else TaskType.TODO
-    editTasksViewModel.setTaskType(taskType)
+    //val taskType = if (isDaily) TaskType.DAILY else TaskType.TODO
+    //editTasksViewModel.setTaskType(taskType)
     EditTaskScreenContent(
         isCreated = isCreated,
         uiState = taskUiState,
@@ -77,6 +81,7 @@ fun EditTaskScreen(
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EditTaskScreenContent(
     isCreated: Boolean,
@@ -90,6 +95,11 @@ fun EditTaskScreenContent(
     onUpdateClick: () -> Unit,
     onDeleteClick: () -> Unit
 ) {
+    val header = if(isCreated){
+        if(uiState.type == TaskType.DAILY) R.string.edit_daily else R.string.edit_to_do
+    } else {
+        if(uiState.type == TaskType.DAILY) R.string.new_daily else R.string.new_to_do
+    }
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             IconButton(
@@ -100,7 +110,7 @@ fun EditTaskScreenContent(
             }
             Text(
                 modifier = Modifier.weight(0.3f),
-                text = stringResource(R.string.new_task)
+                text = stringResource(header)
             )
             Spacer(modifier = Modifier.weight(0.6f))
         }
@@ -112,7 +122,6 @@ fun EditTaskScreenContent(
             onNewValue = onTaskTitleChange,
             onClearClick = { onClearFieldClick("title") },
         )
-        Spacer(modifier = Modifier.padding(8.dp))
         //Task description
         InputField(
             placeholder = R.string.task_description,
@@ -120,25 +129,26 @@ fun EditTaskScreenContent(
             onNewValue = onTaskDescChange,
             onClearClick = { onClearFieldClick("description") },
         )
+        //Date picker
         if (uiState.type == TaskType.TODO) {
-            Spacer(modifier = Modifier.padding(8.dp))
-            /*val dateState = rememberDatePickerState()
-            DatePicker(state = dateState)*/
-            InputField(
+            val dateState = rememberDatePickerState()
+            DateField(
                 placeholder = R.string.task_due_date,
                 value = uiState.dueDate,
                 onNewValue = onDueDateChange,
-                onClearClick = { onClearFieldClick("dueDate") },
+                state = dateState
             )
         }
+        //Buttons
         if (!isCreated) {
+            //Create task
             TextButton(
                 onClick = onCreateClick,
                 shape = ButtonDefaults.outlinedShape,
                 border = BorderStroke(0.dp, Color.Black),
                 colors = ButtonDefaults.textButtonColors(
-                    containerColor = Color.White,
-                    contentColor = Color.Black
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    contentColor = Color.White
                 ),
             ) {
                 Text(text = stringResource(R.string.create_task))
@@ -146,13 +156,14 @@ fun EditTaskScreenContent(
             }
         } else {
             Row {
+                //Delete task
                 TextButton(
                     onClick = onDeleteClick,
                     shape = ButtonDefaults.outlinedShape,
                     border = BorderStroke(0.dp, Color.Black),
                     colors = ButtonDefaults.textButtonColors(
-                        containerColor = Color.Black,
-                        contentColor = Color.White
+                        containerColor = Color.White,
+                        contentColor = MaterialTheme.colorScheme.primary
                     ),
                 ) {
                     Text(text = stringResource(R.string.delete_task))
@@ -161,14 +172,15 @@ fun EditTaskScreenContent(
                         contentDescription = stringResource(id = R.string.delete_task)
                     )
                 }
-                Spacer(modifier = Modifier.padding(4.dp))
+                Spacer(modifier = Modifier.padding(8.dp))
+                //Update task
                 TextButton(
                     onClick = onUpdateClick,
                     shape = ButtonDefaults.outlinedShape,
                     border = BorderStroke(0.dp, Color.Black),
                     colors = ButtonDefaults.textButtonColors(
-                        containerColor = Color.White,
-                        contentColor = Color.Black
+                        containerColor = MaterialTheme.colorScheme.primary,
+                        contentColor = Color.White
                     ),
                 ) {
                     Text(text = stringResource(R.string.update_task))
@@ -189,7 +201,7 @@ fun PreviewEditTaskScreenContent() {
     val taskUiState = TaskUiState(
         id = 0,
         title = "",
-        type = TaskType.DAILY,
+        type = TaskType.TODO,
         dueDate = "",
         dueTime = "",
         description = "",
