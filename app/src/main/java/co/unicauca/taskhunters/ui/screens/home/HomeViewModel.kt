@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.unicauca.taskhunters.data.TasksRepository
 import co.unicauca.taskhunters.model.Task
+import co.unicauca.taskhunters.model.TaskType
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
@@ -14,7 +15,7 @@ class HomeViewModel(private val tasksRepository: TasksRepository) : ViewModel() 
      * Holds dailies ui state. The list of tasks are retrieved from [TasksRepository]
      * and mapped to [HomeUiState]
      */
-    private val _homeUiState = tasksRepository.getAllTasksStream()
+    private val _homeUiState = tasksRepository.getAllTasksByFlagStream()
         .map { HomeUiState(it) }
         .stateIn(
             scope = viewModelScope,
@@ -31,6 +32,9 @@ class HomeViewModel(private val tasksRepository: TasksRepository) : ViewModel() 
      * Delete a Task in the Room database
      */
     suspend fun taskChecked(task: Task) {
-        tasksRepository.deleteTask(task)
+        if (task.type == TaskType.DAILY)
+            tasksRepository.updateFlag(task.id, !task.flag)
+        else
+            tasksRepository.deleteTask(task)
     }
 }

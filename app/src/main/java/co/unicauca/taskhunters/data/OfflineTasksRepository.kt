@@ -17,4 +17,7 @@ class OfflineTasksRepository(private val taskDao: TaskDao) : TasksRepository {
     override suspend fun deleteTask(task: Task) = taskDao.delete(task)
 
     override suspend fun updateTask(task: Task) = taskDao.update(task)
+    override suspend fun updateFlag(taskId: Int, newFlag: Boolean) = taskDao.updateFlag(taskId, newFlag)
+    override fun getAllTasksByFlagStream(): Flow<List<Task>> = taskDao.getAllTasksByFlag()
+
 }

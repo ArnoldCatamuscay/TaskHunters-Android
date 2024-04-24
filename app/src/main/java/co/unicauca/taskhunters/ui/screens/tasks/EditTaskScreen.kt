@@ -16,6 +16,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -25,6 +26,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import co.unicauca.taskhunters.R
+import co.unicauca.taskhunters.model.Task
 import co.unicauca.taskhunters.model.TaskType
 import co.unicauca.taskhunters.ui.common.composable.InputField
 import kotlinx.coroutines.CoroutineScope
@@ -32,6 +34,7 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun EditTaskScreen(
+    task: Task = Task(type = TaskType.DAILY),
     isDaily: Boolean,
     isCreated: Boolean,
     goBack: () -> Unit,
@@ -39,6 +42,9 @@ fun EditTaskScreen(
     editTasksViewModel: EditTasksViewModel
 ) {
     val taskUiState by editTasksViewModel.taskUiState.collectAsState()
+    LaunchedEffect(key1 = task) {
+        editTasksViewModel.uploadTask(task)
+    }
     val taskType = if (isDaily) TaskType.DAILY else TaskType.TODO
     editTasksViewModel.setTaskType(taskType)
     EditTaskScreenContent(
@@ -58,8 +64,16 @@ fun EditTaskScreen(
                 }
             }
         },
-        onUpdateClick = {},
-        onDeleteClick = {}
+        onUpdateClick = {
+            coroutineScope.launch {
+                editTasksViewModel.updateTask(goBack)
+            }
+        },
+        onDeleteClick = {
+            coroutineScope.launch {
+                editTasksViewModel.deleteTask(goBack)
+            }
+        }
     )
 }
 
@@ -106,7 +120,7 @@ fun EditTaskScreenContent(
             onNewValue = onTaskDescChange,
             onClearClick = { onClearFieldClick("description") },
         )
-        if(uiState.type == TaskType.TODO){
+        if (uiState.type == TaskType.TODO) {
             Spacer(modifier = Modifier.padding(8.dp))
             /*val dateState = rememberDatePickerState()
             DatePicker(state = dateState)*/
@@ -175,7 +189,7 @@ fun PreviewEditTaskScreenContent() {
     val taskUiState = TaskUiState(
         id = 0,
         title = "",
-        type = TaskType.TODO,
+        type = TaskType.DAILY,
         dueDate = "",
         dueTime = "",
         description = "",
@@ -184,7 +198,7 @@ fun PreviewEditTaskScreenContent() {
         userId = ""
     )
     EditTaskScreenContent(
-        isCreated = false,
+        isCreated = true,
         uiState = taskUiState,
         onTaskTitleChange = {},
         onTaskDescChange = {},

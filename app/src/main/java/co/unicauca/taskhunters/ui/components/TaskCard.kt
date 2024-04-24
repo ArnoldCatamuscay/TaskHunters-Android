@@ -31,18 +31,24 @@ import co.unicauca.taskhunters.ui.theme.OrangeCardTask
 @Composable
 fun TaskCard(
     task: Task,
+    onClickEdit: () -> Unit,
     onChecked: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    var colorChecked: Color = Color.LightGray
+    if(task.type == TaskType.DAILY){
+        colorChecked = if (task.flag) OrangeCardTask else colorChecked
+    }
     Row(
         modifier = modifier
             .padding(8.dp)
             .clip(RoundedCornerShape(8.dp))
             .background(Color.LightGray.copy(alpha = 0.7f))
     ) {
-        TaskCheckBox(taskType = task.type, onClick = onChecked)
+        TaskCheckBox(taskType = task.type, onClick = onChecked, colorChecked = colorChecked)
         Spacer(modifier = Modifier.padding(4.dp))
-        Column {
+        Column(modifier = Modifier
+            .clickable { onClickEdit() }) {
             Text(
                 text = task.title,
                 modifier = Modifier
@@ -64,6 +70,7 @@ fun TaskCard(
 fun TaskCheckBox(
     taskType: TaskType,
     onClick: () -> Unit,
+    colorChecked: Color,
     modifier: Modifier = Modifier
 ) {
     val bgColor = if (taskType == TaskType.DAILY) OrangeCardTask else GreenCardTask
@@ -94,7 +101,7 @@ fun TaskCheckBox(
                     val roundedPolygonPath = roundedPolygon
                         .toPath()
                         .asComposePath()
-                    drawPath(roundedPolygonPath, color = Color.LightGray)
+                    drawPath(roundedPolygonPath, color = colorChecked)
                 }
             }
         )

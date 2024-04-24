@@ -58,6 +58,7 @@ dependencies {
     implementation("androidx.core:core-ktx:1.10.1")
     //noinspection UseTomlInstead
     implementation("androidx.room:room-ktx:${rootProject.extra["room_version"]}")
+    implementation("com.google.code.gson:gson:2.10.1")
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

@@ -41,4 +41,14 @@ interface TasksRepository {
      * Update task in the data source
      */
     suspend fun updateTask(task: Task)
+
+    /**
+     * Update attribute flag in the data source
+     */
+    suspend fun updateFlag(taskId: Int, newFlag: Boolean)
+
+    /**
+     * Retrieve all the tasks not completed from the given data source.
+     */
+    fun getAllTasksByFlagStream(): Flow<List<Task>>
 }

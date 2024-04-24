@@ -29,6 +29,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import co.unicauca.taskhunters.R
+import co.unicauca.taskhunters.model.Task
 import co.unicauca.taskhunters.ui.components.CharacterInfo
 import co.unicauca.taskhunters.ui.components.TaskCard
 import co.unicauca.taskhunters.ui.components.TopSearchBar
@@ -41,6 +42,7 @@ import kotlinx.coroutines.launch
 fun HomeScreen(
     onOpenDrawer: () -> Unit,
     coroutineScope: CoroutineScope,
+    goToEdit: (Task) -> Unit,
     homeViewModel: HomeViewModel,
     modifier: Modifier = Modifier
 ) {
@@ -66,6 +68,7 @@ fun HomeScreen(
         ) { task ->
             TaskCard(
                 task = task,
+                onClickEdit = { goToEdit(task) },
                 onChecked = {
                     coroutineScope.launch {
                         homeViewModel.taskChecked(task)

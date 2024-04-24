@@ -23,6 +23,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import co.unicauca.taskhunters.R
+import co.unicauca.taskhunters.model.Task
 import co.unicauca.taskhunters.ui.components.CharacterInfo
 import co.unicauca.taskhunters.ui.components.TaskCard
 import co.unicauca.taskhunters.ui.theme.TaskHuntersTheme
@@ -33,6 +34,7 @@ import kotlinx.coroutines.launch
 fun ToDoScreen(
     modifier: Modifier = Modifier,
     coroutineScope: CoroutineScope,
+    goToEdit: (Task) -> Unit,
     toDoSViewModel: ToDoSViewModel
 ) {
     val toDoSUiState by toDoSViewModel.toDoSUiState.collectAsState()
@@ -75,6 +77,7 @@ fun ToDoScreen(
         ) { task ->
             TaskCard(
                 task = task,
+                onClickEdit = { goToEdit(task) },
                 onChecked = {
                     coroutineScope.launch {
                         toDoSViewModel.taskChecked(task)
