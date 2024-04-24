@@ -11,10 +11,12 @@ import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -28,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import co.unicauca.taskhunters.R
 import co.unicauca.taskhunters.model.Task
 import co.unicauca.taskhunters.model.TaskType
+import co.unicauca.taskhunters.ui.common.composable.DateField
 import co.unicauca.taskhunters.ui.common.composable.InputField
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -43,7 +46,7 @@ fun EditTaskScreen(
 ) {
     val taskUiState by editTasksViewModel.taskUiState.collectAsState()
     LaunchedEffect(key1 = task) {
-        editTasksViewModel.uploadTask(task)
+        editTasksViewModel.loadTaskData(task)
     }
     val taskType = if (isDaily) TaskType.DAILY else TaskType.TODO
     editTasksViewModel.setTaskType(taskType)
@@ -77,6 +80,7 @@ fun EditTaskScreen(
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EditTaskScreenContent(
     isCreated: Boolean,
@@ -122,13 +126,13 @@ fun EditTaskScreenContent(
         )
         if (uiState.type == TaskType.TODO) {
             Spacer(modifier = Modifier.padding(8.dp))
-            /*val dateState = rememberDatePickerState()
-            DatePicker(state = dateState)*/
-            InputField(
+            //New
+            val dateState = rememberDatePickerState()
+            DateField(
                 placeholder = R.string.task_due_date,
                 value = uiState.dueDate,
                 onNewValue = onDueDateChange,
-                onClearClick = { onClearFieldClick("dueDate") },
+                state = dateState
             )
         }
         if (!isCreated) {
@@ -189,7 +193,7 @@ fun PreviewEditTaskScreenContent() {
     val taskUiState = TaskUiState(
         id = 0,
         title = "",
-        type = TaskType.DAILY,
+        type = TaskType.TODO,
         dueDate = "",
         dueTime = "",
         description = "",

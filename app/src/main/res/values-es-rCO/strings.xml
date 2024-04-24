@@ -28,4 +28,7 @@
     <string name="update_task">Actualizar Tarea</string>
     <string name="fab_create_task">Nueva Tarea</string>
     <string name="fab_create_task_desc">Crear nueva tarea</string>
+    <string name="confirm_date">Confirmar</string>
+    <string name="task_title_error">Ingrese un título para la tarea</string>
+    <string name="task_due_time_error">Ingrese una fecha límite para la tarea</string>
 </resources>
