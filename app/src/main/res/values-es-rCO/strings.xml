@@ -31,4 +31,8 @@
     <string name="confirm_date">Confirmar</string>
     <string name="task_title_error">Ingrese un título para la tarea</string>
     <string name="task_due_time_error">Ingrese una fecha límite para la tarea</string>
+    <string name="new_daily">Nueva Daily</string>
+    <string name="new_to_do">Nuevo To Do</string>
+    <string name="edit_daily">Editar Daily</string>
+    <string name="edit_to_do">Editar To Do</string>
 </resources>

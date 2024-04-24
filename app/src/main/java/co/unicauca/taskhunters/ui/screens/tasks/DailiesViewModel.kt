@@ -8,7 +8,6 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
-
 class DailiesViewModel(private val tasksRepository: TasksRepository) : ViewModel() {
 
     /**
@@ -35,3 +34,4 @@ class DailiesViewModel(private val tasksRepository: TasksRepository) : ViewModel
         tasksRepository.updateFlag(task.id, !task.flag)
     }
 }
+

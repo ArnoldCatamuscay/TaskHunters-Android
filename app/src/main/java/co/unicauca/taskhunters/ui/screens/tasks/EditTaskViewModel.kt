@@ -20,8 +20,13 @@ class EditTasksViewModel(private val tasksRepository: TasksRepository) : ViewMod
     private val _taskUiState = MutableStateFlow(TaskUiState())
     var taskUiState: StateFlow<TaskUiState> = _taskUiState.asStateFlow()
 
-    fun loadTaskData(task: Task){
+    /**
+    * Load task info into _taskUiState
+    */
+    fun loadTaskData(task: Task, isDaily: Boolean){
+        val taskType = if (isDaily) TaskType.DAILY else TaskType.TODO
         _taskUiState.update { task.toTaskUiState() }
+        setTaskType(taskType)
     }
 
     /**
@@ -65,7 +70,7 @@ class EditTasksViewModel(private val tasksRepository: TasksRepository) : ViewMod
         goBack()
     }
 
-    fun setTaskType(type: TaskType) {
+    private fun setTaskType(type: TaskType) {
         _taskUiState.update { it.copy(type = type) }
     }
 
