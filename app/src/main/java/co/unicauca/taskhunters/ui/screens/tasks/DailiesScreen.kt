@@ -23,6 +23,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import co.unicauca.taskhunters.R
+import co.unicauca.taskhunters.model.Task
 import co.unicauca.taskhunters.ui.components.CharacterInfo
 import co.unicauca.taskhunters.ui.components.TaskCard
 import kotlinx.coroutines.CoroutineScope
@@ -32,6 +33,7 @@ import kotlinx.coroutines.launch
 fun DailiesScreen(
     modifier: Modifier = Modifier,
     coroutineScope: CoroutineScope,
+    goToEdit: (Task) -> Unit,
     dailiesViewModel: DailiesViewModel
 ) {
     val dailiesUiState by dailiesViewModel.dailiesUiState.collectAsState()
@@ -73,6 +75,7 @@ fun DailiesScreen(
         ) { task ->
             TaskCard(
                 task = task,
+                onClickEdit = { goToEdit(task) },
                 onChecked = {
                     coroutineScope.launch {
                         dailiesViewModel.taskChecked(task)

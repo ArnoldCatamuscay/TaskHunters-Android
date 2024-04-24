@@ -66,6 +66,7 @@ fun HomeScreen(
         ) { task ->
             TaskCard(
                 task = task,
+                onClickEdit = {/* TODO */},
                 onChecked = {
                     coroutineScope.launch {
                         homeViewModel.taskChecked(task)

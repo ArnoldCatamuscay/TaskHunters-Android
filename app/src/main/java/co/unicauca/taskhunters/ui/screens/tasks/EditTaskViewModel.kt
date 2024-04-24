@@ -1,7 +1,10 @@
 package co.unicauca.taskhunters.ui.screens.tasks
 
+
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import co.unicauca.taskhunters.data.TasksRepository
+import co.unicauca.taskhunters.model.Task
 import co.unicauca.taskhunters.model.TaskType
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -14,6 +17,10 @@ class EditTasksViewModel(private val tasksRepository: TasksRepository) : ViewMod
      */
     private val _taskUiState = MutableStateFlow(TaskUiState())
     var taskUiState: StateFlow<TaskUiState> = _taskUiState.asStateFlow()
+
+    fun uploadTask(task: Task){
+        _taskUiState.update { task.toTaskUiState() }
+    }
 
     /**
      * Inserts a Daily in the Room database
@@ -32,6 +39,25 @@ class EditTasksViewModel(private val tasksRepository: TasksRepository) : ViewMod
             it.copy(type = TaskType.TODO)
         }
         tasksRepository.insertTask(_taskUiState.value.toTask())
+        clearAllFields()
+        goBack()
+    }
+
+    /**
+     * Update a Task in the Room database
+     */
+    suspend fun updateTask(goBack : () -> Unit) {
+        Log.d("updateTask", _taskUiState.value.toTask().toString())
+        tasksRepository.updateTask(_taskUiState.value.toTask())
+        clearAllFields()
+        goBack()
+    }
+
+    /**
+     * Delete a Task in the Room database
+     */
+    suspend fun deleteTask(goBack : () -> Unit) {
+        tasksRepository.deleteTask(_taskUiState.value.toTask())
         clearAllFields()
         goBack()
     }

@@ -32,6 +32,6 @@ class DailiesViewModel(private val tasksRepository: TasksRepository) : ViewModel
      * Delete a Task in the Room database
      */
     suspend fun taskChecked(task: Task) {
-        tasksRepository.deleteTask(task)
+        tasksRepository.updateFlag(task.id, !task.flag)
     }
 }

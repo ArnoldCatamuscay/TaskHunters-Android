@@ -75,6 +75,7 @@ fun ToDoScreen(
         ) { task ->
             TaskCard(
                 task = task,
+                onClickEdit = {/* TODO */},
                 onChecked = {
                     coroutineScope.launch {
                         toDoSViewModel.taskChecked(task)

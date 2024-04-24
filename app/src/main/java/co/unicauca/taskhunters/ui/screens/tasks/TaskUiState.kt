@@ -36,7 +36,7 @@ fun TaskUiState.toTask(): Task = Task(
 /**
  * Extension function to convert Task to TaskUiState
  */
-/*fun Task.toTaskUiState(): TaskUiState = TaskUiState(
+fun Task.toTaskUiState(): TaskUiState = TaskUiState(
     id = id,
     title = title,
     type = type,
@@ -46,4 +46,4 @@ fun TaskUiState.toTask(): Task = Task(
     flag = flag,
     completed = completed,
     userId = userId
-)*/
+)

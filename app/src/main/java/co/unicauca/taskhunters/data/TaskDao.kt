@@ -31,4 +31,10 @@ interface TaskDao {
 
     @Query("SELECT * from tasks t Where t.type == 'TODO' ORDER BY title ASC")
     fun getAllToDoS(): Flow<List<Task>>
+
+    @Query("UPDATE tasks SET flag = :newFlag WHERE id = :taskId")
+    suspend fun updateFlag(taskId: Int, newFlag: Boolean)
+
+    @Query("SELECT * from tasks t Where t.flag == 0 ORDER BY title ASC")
+    fun getAllTasksByFlag(): Flow<List<Task>>
 }
