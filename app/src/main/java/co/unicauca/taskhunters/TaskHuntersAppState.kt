@@ -30,7 +30,7 @@ class TaskHuntersAppState(
         }
     }
 
-    /*fun popUp() {
+    fun popUp() {
         navController.popBackStack()
     }
 
@@ -50,5 +50,5 @@ class TaskHuntersAppState(
             launchSingleTop = true
             popUpTo(0) { inclusive = true }
         }
-    }*/
+    }
 }

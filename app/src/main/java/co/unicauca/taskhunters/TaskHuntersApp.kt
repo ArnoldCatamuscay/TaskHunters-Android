@@ -1,4 +1,4 @@
-package co.unicauca.taskhunters.ui
+package co.unicauca.taskhunters
 
 import android.content.res.Resources
 import androidx.compose.foundation.layout.Box
@@ -29,7 +29,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import co.unicauca.taskhunters.TaskHuntersAppState
+import co.unicauca.taskhunters.ui.AppViewModelProvider
 import co.unicauca.taskhunters.ui.common.snackbar.SnackBarManager
 import co.unicauca.taskhunters.ui.components.BOTTOM_NAV_ITEMS
 import co.unicauca.taskhunters.ui.components.BottomNavBar

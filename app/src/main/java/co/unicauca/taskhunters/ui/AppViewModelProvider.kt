@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory
 import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
-import co.unicauca.taskhunters.TaskHuntersApplication
+import co.unicauca.taskhunters.TaskHuntersHiltApplication
 import co.unicauca.taskhunters.ui.screens.home.HomeViewModel
 import co.unicauca.taskhunters.ui.screens.tasks.DailiesViewModel
 import co.unicauca.taskhunters.ui.screens.tasks.EditTasksViewModel
@@ -37,7 +37,7 @@ object AppViewModelProvider {
 
 /**
  * Extension function to queries for [Application] object and returns an instance of
- * [TaskHuntersApplication].
+ * [TaskHuntersHiltApplication].
  */
-fun CreationExtras.taskHuntersApplication(): TaskHuntersApplication =
-    (this[AndroidViewModelFactory.APPLICATION_KEY] as TaskHuntersApplication)
+fun CreationExtras.taskHuntersApplication(): TaskHuntersHiltApplication =
+    (this[AndroidViewModelFactory.APPLICATION_KEY] as TaskHuntersHiltApplication)
