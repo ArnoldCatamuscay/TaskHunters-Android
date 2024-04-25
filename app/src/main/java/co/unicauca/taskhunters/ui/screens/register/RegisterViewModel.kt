@@ -1,17 +1,23 @@
 package co.unicauca.taskhunters.ui.screens.register
 
-import androidx.lifecycle.ViewModel
+import co.unicauca.taskhunters.model.service.AccountService
 import co.unicauca.taskhunters.ui.common.ext.isValidEmail
 import co.unicauca.taskhunters.ui.common.ext.isValidPassword
 import co.unicauca.taskhunters.ui.common.ext.passwordMatches
 import co.unicauca.taskhunters.ui.common.snackbar.SnackBarManager
+import co.unicauca.taskhunters.ui.screens.AppViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import javax.inject.Inject
 import co.unicauca.taskhunters.R.string as AppText
 
-class RegisterViewModel : ViewModel() {
+@HiltViewModel
+class RegisterViewModel @Inject constructor(
+    private val accountService: AccountService
+) : AppViewModel() {
     private val _uiState = MutableStateFlow(RegisterUiState())
     var uiState: StateFlow<RegisterUiState> = _uiState.asStateFlow()
 
@@ -69,6 +75,9 @@ class RegisterViewModel : ViewModel() {
             return
         }
 
-        goToHome()
+        launchCatching {
+            accountService.signUp(email, password)
+            goToHome()
+        }
     }
 }

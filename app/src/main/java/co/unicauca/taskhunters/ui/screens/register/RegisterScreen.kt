@@ -33,16 +33,16 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import co.unicauca.taskhunters.R.string as AppText
-import co.unicauca.taskhunters.R.drawable as AppDrawable
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import co.unicauca.taskhunters.ui.common.composable.InputField
+import co.unicauca.taskhunters.R.drawable as AppDrawable
+import co.unicauca.taskhunters.R.string as AppText
 
 @Composable
 fun RegisterScreen(
     goBack: () -> Unit,
     goToHome: () -> Unit,
-    registerViewModel: RegisterViewModel = viewModel()
+    registerViewModel: RegisterViewModel = hiltViewModel()
 ) {
     // Whenever there's a change in the uiState value, a recomposition occurs
     // for the composable function with registerUiState
