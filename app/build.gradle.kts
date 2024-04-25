@@ -4,6 +4,9 @@ plugins {
     id("com.google.devtools.ksp")
     // Add the Google services Gradle plugin
     id("com.google.gms.google-services")
+    //Hilt
+    //id("com.google.dagger.hilt.android")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -53,6 +56,14 @@ android {
 }
 
 dependencies {
+    //Hilt
+    implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
+    //implementation("com.google.dagger:hilt-android:2.44")
+    //ksp("com.google.dagger:dagger-compiler:2.44")
+    implementation("com.google.dagger:hilt-android:2.47")
+    ksp("com.google.dagger:hilt-compiler:2.47")
+    //ksp("com.google.dagger:hilt-android-compiler:2.44")
+
     // Import the Firebase BoM
     implementation(platform("com.google.firebase:firebase-bom:32.3.1"))
     // When using the BoM, you don't specify versions in Firebase library dependencies
