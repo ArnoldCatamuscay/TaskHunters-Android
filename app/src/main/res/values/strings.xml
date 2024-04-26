@@ -36,7 +36,7 @@
     <string name="edit_to_do">Edit To Do</string>
     <string name="email_empty">Email is empty</string>
     <string name="password_empty">Password is empty</string>
-    <string name="btn_login">Iniciar sesión</string>
+    <string name="btn_login">Log In</string>
     <string name="forgot_password">Forgot password?</string>
     <string name="continue_as_guest">Continue as Guest</string>
     <string name="continue_with_google">Continue with Google</string>

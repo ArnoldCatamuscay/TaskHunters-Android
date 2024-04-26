@@ -35,4 +35,11 @@
     <string name="new_to_do">Nuevo To Do</string>
     <string name="edit_daily">Editar Daily</string>
     <string name="edit_to_do">Editar To Do</string>
+    <string name="email_empty">El correo electrónico está vacío</string>
+    <string name="password_empty">La contraseña está vacía</string>
+    <string name="btn_login">Iniciar sesión</string>
+    <string name="forgot_password">¿Olvidaste tu contraseña?</string>
+    <string name="continue_as_guest">Continuar como Invitado</string>
+    <string name="continue_with_google">Continuar con Google</string>
+    <string name="register_question">¿No tienes una cuenta? Regístrate</string>
 </resources>
