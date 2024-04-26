@@ -1,23 +1,18 @@
 package co.unicauca.taskhunters.ui.screens.register
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -30,17 +25,22 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import co.unicauca.taskhunters.R
 import co.unicauca.taskhunters.ui.common.composable.InputField
-import co.unicauca.taskhunters.R.drawable as AppDrawable
+import co.unicauca.taskhunters.ui.theme.Purple40
 import co.unicauca.taskhunters.R.string as AppText
 
 @Composable
 fun RegisterScreen(
-    goBack: () -> Unit,
     navigateAndPopUp: (String, String) -> Unit,
     registerViewModel: RegisterViewModel = hiltViewModel()
 ) {
@@ -53,8 +53,8 @@ fun RegisterScreen(
         onPasswordChange = registerViewModel::onPasswordChange,
         onConfirmPasswordChange = registerViewModel::onConfirmPasswordChange,
         onClearFieldClick = registerViewModel::onClearFieldClick,
-        onReturnClick = { goBack() },
         onRegisterClick = { registerViewModel.onRegisterClick(navigateAndPopUp) },
+        onLogInClick = { registerViewModel.onLogInClick(navigateAndPopUp) }
     )
 }
 
@@ -67,37 +67,28 @@ fun RegisterScreenContent(
     onPasswordChange: (String) -> Unit,
     onConfirmPasswordChange: (String) -> Unit,
     onClearFieldClick: (String) -> Unit,
-    onReturnClick: () -> Unit,
     onRegisterClick: () -> Unit,
+    onLogInClick: () -> Unit
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
             .verticalScroll(rememberScrollState())
     ) {
-        Box {
-            Image(
-                painter = painterResource(AppDrawable.register_image),
-                contentDescription = "Register image",
-                contentScale = ContentScale.FillWidth,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(380.dp)
-            )
-            IconButton(
-                onClick = { onReturnClick() },
-                modifier = Modifier
-                    .padding(12.dp)
-                    .size(48.dp)
-                    .clip(CircleShape)
-                    .background(MaterialTheme.colorScheme.primary)
-            ) {
-                Icon(
-                    imageVector = Icons.Default.ArrowBack,
-                    contentDescription = "Go back"
-                )
-            }
-        }
+        Spacer(modifier = Modifier.padding(8.dp))
+        Image(
+            painter = painterResource(R.drawable.register_image),
+            contentDescription = "Register image",
+            contentScale = ContentScale.FillWidth,
+            modifier = Modifier
+                .clip(RoundedCornerShape(size = 48.dp))
+                .size(180.dp)
+        )
+        Spacer(modifier = Modifier.padding(4.dp))
+        Text(
+            text = stringResource(id = R.string.app_name),
+            fontSize = 24.sp
+        )
         Spacer(modifier = Modifier.padding(12.dp))
 
         InputField(
@@ -129,10 +120,38 @@ fun RegisterScreenContent(
             onClearClick = { onClearFieldClick("confirm password") },
             visualTransformation = PasswordVisualTransformation()
         )
-
-        Button(onClick = { onRegisterClick() }) {
-            Text(text = stringResource(AppText.nav_register_text))
+        Box(modifier = Modifier.padding(40.dp, 0.dp, 40.dp, 0.dp)) {
+            Button(
+                onClick = { onRegisterClick() },
+                shape = RoundedCornerShape(50.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(50.dp)
+            ) {
+                Text(text = stringResource(R.string.nav_register_text).uppercase())
+            }
         }
+        ClickableText(
+            text = AnnotatedString("Already have an account? Log In"),
+            modifier = Modifier
+                .padding(20.dp),
+            onClick = { onLogInClick() },
+            style = TextStyle(
+                fontSize = 14.sp,
+                fontFamily = FontFamily.Default,
+                textDecoration = TextDecoration.Underline,
+                color = Purple40
+            )
+        )
+        /*Spacer(modifier = Modifier.height(20.dp))
+        Divider(Modifier.padding(start = 24.dp, end = 24.dp))
+        Spacer(modifier = Modifier.height(20.dp))
+        SocialMediaButton(
+            onClick = {},
+            text = stringResource(R.string.continue_with_google),
+            icon = R.drawable.ic_google,
+            color = Color(0xFFF1F1F1)
+        )*/
     }
 }
 
@@ -140,9 +159,18 @@ fun RegisterScreenContent(
 @Composable
 fun PreviewRegisterScreen() {
     Surface(
-        modifier = Modifier.fillMaxSize(),
+        //modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
     ) {
-        //RegisterScreen(goBack = {}, goToHome = {})
+        RegisterScreenContent(
+            uiState = RegisterUiState(),
+            onUsernameChange = {},
+            onEmailChange = {},
+            onPasswordChange = {},
+            onConfirmPasswordChange = {},
+            onClearFieldClick = {},
+            onRegisterClick = { },
+            onLogInClick = {},
+        )
     }
 }

@@ -77,8 +77,13 @@ class RegisterViewModel @Inject constructor(
         }
 
         launchCatching {
-            accountService.signUp(email, password)
-            navigateAndPopUp(Screens.RewardsScreen.name, Screens.RegisterScreen.name)
+            //accountService.signUp(email, password)
+            accountService.linkAccount(email, password)
+            navigateAndPopUp(Screens.HomeScreen.name, Screens.RegisterScreen.name)
         }
+    }
+
+    fun onLogInClick(navigateAndPopUp: (String, String) -> Unit) {
+        navigateAndPopUp(Screens.LogInScreen.name, Screens.RegisterScreen.name)
     }
 }

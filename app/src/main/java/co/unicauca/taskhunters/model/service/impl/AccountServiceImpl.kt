@@ -2,9 +2,11 @@ package co.unicauca.taskhunters.model.service.impl
 
 import co.unicauca.taskhunters.model.User
 import co.unicauca.taskhunters.model.service.AccountService
+import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
@@ -34,6 +36,27 @@ class AccountServiceImpl @Inject constructor() : AccountService {
         return Firebase.auth.currentUser != null
     }
 
+    override fun getUserProfile(): User {
+        return Firebase.auth.currentUser.toTaskHuntersUser()
+    }
+
+    override suspend fun createAnonymousAccount() {
+        Firebase.auth.signInAnonymously().await()
+    }
+
+    override suspend fun updateDisplayName(newDisplayName: String) {
+        val profileUpdates = userProfileChangeRequest {
+            displayName = newDisplayName
+        }
+
+        Firebase.auth.currentUser!!.updateProfile(profileUpdates).await()
+    }
+
+    override suspend fun linkAccount(email: String, password: String) {
+        val credential = EmailAuthProvider.getCredential(email, password)
+        Firebase.auth.currentUser!!.linkWithCredential(credential).await()
+    }
+
     /**
      * Function to log in in the app
      * */
@@ -44,16 +67,19 @@ class AccountServiceImpl @Inject constructor() : AccountService {
     /**
      * Function to register in the app
      * */
-    override suspend fun signUp(email: String, password: String) {
+    /*override suspend fun signUp(email: String, password: String) {
         Firebase.auth.createUserWithEmailAndPassword(email, password).await()
-    }
+    }*/
 
     override suspend fun signOut() {
         Firebase.auth.signOut()
+
+        // Sign the user back in anonymously.
+        createAnonymousAccount()
     }
 
     override suspend fun deleteAccount() {
-        TODO("Not yet implemented")
+        Firebase.auth.currentUser!!.delete().await()
     }
 
     private fun FirebaseUser?.toTaskHuntersUser(): User {

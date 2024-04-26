@@ -35,16 +35,13 @@ import co.unicauca.taskhunters.ui.components.FABScreensList
 import co.unicauca.taskhunters.ui.components.NavigationDrawerContent
 import co.unicauca.taskhunters.ui.components.NavigationGraph
 import co.unicauca.taskhunters.ui.components.TaskFAB
+import co.unicauca.taskhunters.ui.components.authScreensList
 import co.unicauca.taskhunters.ui.theme.TaskHuntersTheme
 import kotlinx.coroutines.CoroutineScope
 
 @Composable
 fun TaskHuntersApp() {
     val appState = rememberAppState()
-    /*val homeViewModel: HomeViewModel = viewModel(factory = AppViewModelProvider.Factory)
-    val dailiesViewModel: DailiesViewModel = viewModel(factory = AppViewModelProvider.Factory)
-    val toDoSViewModel: ToDoSViewModel = viewModel(factory = AppViewModelProvider.Factory)
-    val editTaskViewModel: EditTasksViewModel = viewModel(factory = AppViewModelProvider.Factory)*/
     val coroutineScope = rememberCoroutineScope()
     val navBackStackEntry by appState.navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
@@ -78,10 +75,11 @@ fun TaskHuntersApp() {
             },
             floatingActionButtonPosition = FabPosition.End,
             bottomBar = {
-                BottomNavBar(
-                    BOTTOM_NAV_ITEMS,
-                    onClickItem = { route -> appState.navController.navigate(route) }
-                )
+                if (currentRoute != null && currentRoute !in authScreensList)
+                    BottomNavBar(
+                        BOTTOM_NAV_ITEMS,
+                        onClickItem = { route -> appState.navController.navigate(route) }
+                    )
             },
         ) { innerPadding ->
             Box(
@@ -89,14 +87,7 @@ fun TaskHuntersApp() {
                     .fillMaxSize()
                     .padding(innerPadding)
             ) {
-                NavigationGraph(
-                    appState = appState,
-                    scope = coroutineScope,
-                    /*homeViewModel = homeViewModel,
-                    dailiesViewModel = dailiesViewModel,
-                    toDoSViewModel = toDoSViewModel,
-                    editTasksViewModel = editTaskViewModel*/
-                )
+                NavigationGraph(appState = appState, scope = coroutineScope)
             }
         }
     }

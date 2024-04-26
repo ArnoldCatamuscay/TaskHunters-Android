@@ -11,8 +11,18 @@ class SplashViewModel @Inject constructor(
     private val accountService: AccountService,
 ) : AppViewModel() {
 
-    fun onAppStart(openAndPopUp: (String, String) -> Unit) {
-        if (accountService.hasUser()) openAndPopUp(Screens.HomeScreen.name, Screens.SplashScreen.name)
-        else openAndPopUp(Screens.LogInScreen.name, Screens.SplashScreen.name)
+    fun onAppStart(navigateAndPopUp: (String, String) -> Unit) {
+        if (accountService.hasUser())
+            navigateAndPopUp(Screens.HomeScreen.name, Screens.SplashScreen.name)
+        else
+            createAnonymousAccount(navigateAndPopUp)
+        //else openAndPopUp(Screens.LogInScreen.name, Screens.SplashScreen.name)
+    }
+
+    private fun createAnonymousAccount(navigateAndPopUp: (String, String) -> Unit) {
+        launchCatching {
+            accountService.createAnonymousAccount()
+            navigateAndPopUp(Screens.HomeScreen.name, Screens.SplashScreen.name)
+        }
     }
 }

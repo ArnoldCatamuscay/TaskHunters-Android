@@ -141,13 +141,13 @@ fun LoginScreenContent(
         Spacer(modifier = Modifier.height(20.dp))
         //Text(text = "-------- o --------", style = TextStyle(color = Color.Gray))
         Divider(Modifier.padding(start = 24.dp, end = 24.dp))
-        Spacer(modifier = Modifier.height(20.dp))
+        /*Spacer(modifier = Modifier.height(20.dp))
         SocialMediaButton(
             onClick = onGuestClick,
             text = stringResource(R.string.continue_as_guest),
             icon = R.drawable.ic_incognito,
             color = Color(0xFF363636)
-        )
+        )*/
         Spacer(modifier = Modifier.height(15.dp))
         SocialMediaButton(
             onClick = onGoogleClick,

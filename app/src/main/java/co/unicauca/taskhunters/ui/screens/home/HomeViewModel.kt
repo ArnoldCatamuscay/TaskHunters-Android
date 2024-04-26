@@ -46,6 +46,20 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    fun onSignOutClick(restartApp: (String) -> Unit) {
+        launchCatching {
+            accountService.signOut()
+            restartApp(Screens.SplashScreen.name)
+        }
+    }
+
+    fun onDeleteAccountClick(restartApp: (String) -> Unit) {
+        launchCatching {
+            accountService.deleteAccount()
+            restartApp(Screens.SplashScreen.name)
+        }
+    }
+
     /**
      * Delete a Task in the Room database
      */

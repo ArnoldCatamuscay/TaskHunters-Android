@@ -53,7 +53,7 @@ class LoginViewModel @Inject constructor(
 
         launchCatching {
             accountService.signIn(email, password)
-            navigateAndPopUp(Screens.RewardsScreen.name, Screens.LogInScreen.name)
+            navigateAndPopUp(Screens.HomeScreen.name, Screens.LogInScreen.name)
         }
     }
 

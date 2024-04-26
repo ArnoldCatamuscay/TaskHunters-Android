@@ -6,6 +6,7 @@ import androidx.navigation.compose.composable
 import co.unicauca.taskhunters.TaskHuntersAppState
 import co.unicauca.taskhunters.model.Task
 import co.unicauca.taskhunters.model.TaskType
+import co.unicauca.taskhunters.ui.screens.account_center.AccountCenterScreen
 import co.unicauca.taskhunters.ui.screens.home.HomeScreen
 import co.unicauca.taskhunters.ui.screens.login.LoginScreen
 import co.unicauca.taskhunters.ui.screens.register.RegisterScreen
@@ -22,10 +23,6 @@ import kotlinx.coroutines.launch
 @Composable
 fun NavigationGraph(
     appState: TaskHuntersAppState,
-    /*homeViewModel: HomeViewModel,
-    dailiesViewModel: DailiesViewModel,
-    toDoSViewModel: ToDoSViewModel,
-    editTasksViewModel: EditTasksViewModel,*/
     scope: CoroutineScope
 ) {
     NavHost(
@@ -40,7 +37,6 @@ fun NavigationGraph(
                     }
                 },
                 coroutineScope = scope,
-                //homeViewModel = homeViewModel,
                 restartApp = { route -> appState.navigate(route) },
                 goToEdit = {
                     val gson: Gson = GsonBuilder().create()
@@ -68,7 +64,6 @@ fun NavigationGraph(
         composable(route = Screens.DailiesScreen.name) {
             DailiesScreen(
                 coroutineScope = scope,
-                //dailiesViewModel = dailiesViewModel,
                 goToEdit = {
                     val gson: Gson = GsonBuilder().create()
                     val taskJson = gson.toJson(it)
@@ -82,12 +77,10 @@ fun NavigationGraph(
                     )
                 }
             )
-            //appState.navController.navigate(Screens.EditDailyScreen.name)
         }
         composable(route = Screens.ToDoScreen.name) {
             ToDoScreen(
                 coroutineScope = scope,
-                //toDoSViewModel = toDoSViewModel,
                 goToEdit = {
                     val gson: Gson = GsonBuilder().create()
                     val taskJson = gson.toJson(it)
@@ -107,7 +100,6 @@ fun NavigationGraph(
         }
         composable(route = Screens.RegisterScreen.name) {
             RegisterScreen(
-                goBack = { appState.navController.navigateUp() },
                 navigateAndPopUp = { route, popUp ->
                     appState.navigateAndPopUp(route, popUp)
                 }
@@ -122,7 +114,6 @@ fun NavigationGraph(
                 isCreated = false,
                 goBack = { appState.navController.navigateUp() },
                 coroutineScope = scope,
-                //editTasksViewModel = editTasksViewModel
             )
         }
         composable(route = Screens.CreateToDoScreen.name) {
@@ -131,7 +122,6 @@ fun NavigationGraph(
                 isCreated = false,
                 goBack = { appState.navController.navigateUp() },
                 coroutineScope = scope,
-                //editTasksViewModel = editTasksViewModel
             )
         }
         composable(route = "${Screens.EditDailyScreen.name}/{task}") { navBackStackEntry ->
@@ -147,8 +137,7 @@ fun NavigationGraph(
                 isDaily = true,
                 isCreated = true,
                 goBack = { appState.navController.navigateUp() },
-                coroutineScope = scope,
-                //editTasksViewModel = editTasksViewModel
+                coroutineScope = scope
             )
         }
         composable(route = "${Screens.EditToDoScreen.name}/{task}") { navBackStackEntry ->
@@ -163,8 +152,7 @@ fun NavigationGraph(
                 isDaily = false,
                 isCreated = true,
                 goBack = { appState.navController.navigateUp() },
-                coroutineScope = scope,
-                //editTasksViewModel = editTasksViewModel
+                coroutineScope = scope
             )
         }
         composable(route = Screens.SplashScreen.name) {
@@ -176,6 +164,9 @@ fun NavigationGraph(
             LoginScreen(navigateAndPopUp = { route, popUp ->
                 appState.navigateAndPopUp(route, popUp)
             })
+        }
+        composable(route = Screens.AccountScreen.name) {
+            AccountCenterScreen(restartApp = { route -> appState.navigate(route) })
         }
     }
 }

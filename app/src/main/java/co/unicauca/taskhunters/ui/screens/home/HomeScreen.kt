@@ -14,6 +14,7 @@ import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -97,6 +98,19 @@ fun HomeScreen(
                     contentDescription = null,
                     modifier = Modifier.fillMaxSize()
                 )
+            }
+        }
+        //Log Out
+        item(span = { GridItemSpan(maxLineSpan) }) {
+            Button(onClick = { homeViewModel.onSignOutClick(restartApp) }) {
+                Text(text = "Cerrar sesión")
+            }
+            Spacer(modifier = Modifier.padding(8.dp))
+        }
+        //Delete account
+        item(span = { GridItemSpan(maxLineSpan) }) {
+            Button(onClick = { homeViewModel.onDeleteAccountClick(restartApp) }) {
+                Text(text = "Eliminar cuenta")
             }
         }
     }

@@ -28,12 +28,19 @@ enum class Screens {
     CreateDailyScreen,
     CreateToDoScreen,
     EditDailyScreen,
-    EditToDoScreen
+    EditToDoScreen,
+    AccountScreen
 }
 
 val FABScreensList = listOf(
     Screens.DailiesScreen.toString(),
     Screens.ToDoScreen.toString()
+)
+
+val authScreensList = listOf(
+    Screens.SplashScreen.name,
+    Screens.LogInScreen.name,
+    Screens.RegisterScreen.name
 )
 
 data class NavigationItem(
@@ -83,8 +90,8 @@ val DRAWER_ITEMS = listOf(
         hasNews = false,
     ),
     NavigationItem(
-        route = Screens.RegisterScreen.name,
-        title = R.string.nav_register_text,
+        route = Screens.AccountScreen.name,
+        title = R.string.nav_account_text,
         selectedIcon = Icons.Filled.AccountCircle,
         unselectedIcon = Icons.Outlined.AccountCircle,
         hasNews = false,
