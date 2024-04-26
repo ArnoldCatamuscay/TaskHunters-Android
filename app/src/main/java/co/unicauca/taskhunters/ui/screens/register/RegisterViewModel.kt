@@ -5,6 +5,7 @@ import co.unicauca.taskhunters.ui.common.ext.isValidEmail
 import co.unicauca.taskhunters.ui.common.ext.isValidPassword
 import co.unicauca.taskhunters.ui.common.ext.passwordMatches
 import co.unicauca.taskhunters.ui.common.snackbar.SnackBarManager
+import co.unicauca.taskhunters.ui.components.Screens
 import co.unicauca.taskhunters.ui.screens.AppViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -54,7 +55,7 @@ class RegisterViewModel @Inject constructor(
         }
     }
 
-    fun onRegisterClick(goToHome: () -> Unit) {
+    fun onRegisterClick(navigateAndPopUp: (String, String) -> Unit) {
         if (username.isBlank()) {
             SnackBarManager.showMessage(AppText.username_error)
             return
@@ -77,7 +78,7 @@ class RegisterViewModel @Inject constructor(
 
         launchCatching {
             accountService.signUp(email, password)
-            goToHome()
+            navigateAndPopUp(Screens.RewardsScreen.name, Screens.RegisterScreen.name)
         }
     }
 }

@@ -17,11 +17,13 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import co.unicauca.taskhunters.R
 
 enum class Screens {
+    SplashScreen,
     HomeScreen,
     DailiesScreen,
     ToDoScreen,
     RewardsScreen,
     SettingsScreen,
+    LogInScreen,
     RegisterScreen,
     CreateDailyScreen,
     CreateToDoScreen,

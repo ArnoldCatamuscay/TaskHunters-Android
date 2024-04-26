@@ -31,7 +31,7 @@ class AccountServiceImpl @Inject constructor() : AccountService {
         get() = Firebase.auth.currentUser?.uid.orEmpty()
 
     override fun hasUser(): Boolean {
-        TODO("Not yet implemented")
+        return Firebase.auth.currentUser != null
     }
 
     /**
@@ -49,7 +49,7 @@ class AccountServiceImpl @Inject constructor() : AccountService {
     }
 
     override suspend fun signOut() {
-        TODO("Not yet implemented")
+        Firebase.auth.signOut()
     }
 
     override suspend fun deleteAccount() {

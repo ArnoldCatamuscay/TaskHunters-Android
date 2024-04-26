@@ -1,8 +1,6 @@
 package co.unicauca.taskhunters.data
 
-import android.content.Context
 import androidx.room.Database
-import androidx.room.Room
 import androidx.room.RoomDatabase
 import co.unicauca.taskhunters.model.Task
 
@@ -14,7 +12,7 @@ abstract class TaskDatabase : RoomDatabase() {
 
     abstract fun taskDao(): TaskDao
 
-    companion object {
+    /*companion object {
         @Volatile
         private var Instance: TaskDatabase? = null
 
@@ -27,5 +25,5 @@ abstract class TaskDatabase : RoomDatabase() {
                     .also { Instance = it }
             }
         }
-    }
+    }*/
 }

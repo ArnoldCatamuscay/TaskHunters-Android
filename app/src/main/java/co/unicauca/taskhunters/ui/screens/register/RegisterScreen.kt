@@ -41,11 +41,9 @@ import co.unicauca.taskhunters.R.string as AppText
 @Composable
 fun RegisterScreen(
     goBack: () -> Unit,
-    goToHome: () -> Unit,
+    navigateAndPopUp: (String, String) -> Unit,
     registerViewModel: RegisterViewModel = hiltViewModel()
 ) {
-    // Whenever there's a change in the uiState value, a recomposition occurs
-    // for the composable function with registerUiState
     val registerUiState by registerViewModel.uiState.collectAsState()
 
     RegisterScreenContent(
@@ -56,7 +54,7 @@ fun RegisterScreen(
         onConfirmPasswordChange = registerViewModel::onConfirmPasswordChange,
         onClearFieldClick = registerViewModel::onClearFieldClick,
         onReturnClick = { goBack() },
-        onRegisterClick = { registerViewModel.onRegisterClick(goToHome) },
+        onRegisterClick = { registerViewModel.onRegisterClick(navigateAndPopUp) },
     )
 }
 
@@ -145,6 +143,6 @@ fun PreviewRegisterScreen() {
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
     ) {
-        RegisterScreen(goBack = {}, goToHome = {})
+        //RegisterScreen(goBack = {}, goToHome = {})
     }
 }

@@ -1,19 +1,9 @@
 package co.unicauca.taskhunters.ui
 
-import android.app.Application
-import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory
-import androidx.lifecycle.viewmodel.CreationExtras
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
-import co.unicauca.taskhunters.TaskHuntersHiltApplication
-import co.unicauca.taskhunters.ui.screens.home.HomeViewModel
-import co.unicauca.taskhunters.ui.screens.tasks.DailiesViewModel
-import co.unicauca.taskhunters.ui.screens.tasks.EditTasksViewModel
-import co.unicauca.taskhunters.ui.screens.tasks.ToDoSViewModel
-
 /**
  * Provides Factory to create instance of ViewModel for the entire TaskHunters app
  */
+/*
 object AppViewModelProvider {
     val Factory = viewModelFactory {
         // Initializer for HomeViewModel
@@ -40,4 +30,4 @@ object AppViewModelProvider {
  * [TaskHuntersHiltApplication].
  */
 fun CreationExtras.taskHuntersApplication(): TaskHuntersHiltApplication =
-    (this[AndroidViewModelFactory.APPLICATION_KEY] as TaskHuntersHiltApplication)
+    (this[AndroidViewModelFactory.APPLICATION_KEY] as TaskHuntersHiltApplication)*/
