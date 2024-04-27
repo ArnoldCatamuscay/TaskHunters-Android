@@ -1,8 +1,10 @@
-package co.unicauca.taskhunters.data
+package co.unicauca.taskhunters.di
 
 
 import android.content.Context
 import androidx.room.Room
+import co.unicauca.taskhunters.data.TaskDao
+import co.unicauca.taskhunters.data.TaskDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -1,5 +1,7 @@
-package co.unicauca.taskhunters.data
+package co.unicauca.taskhunters.di
 
+import co.unicauca.taskhunters.data.OfflineTasksRepository
+import co.unicauca.taskhunters.data.TasksRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

@@ -1,4 +1,4 @@
-package co.unicauca.taskhunters.model.service.module
+package co.unicauca.taskhunters.di
 
 import co.unicauca.taskhunters.model.service.AccountService
 import co.unicauca.taskhunters.model.service.impl.AccountServiceImpl
