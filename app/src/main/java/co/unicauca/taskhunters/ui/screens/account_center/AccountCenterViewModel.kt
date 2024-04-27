@@ -23,6 +23,13 @@ class AccountCenterViewModel @Inject constructor(
         }
     }
 
+    fun onUpdateDisplayNameClick(newDisplayName: String) {
+        launchCatching {
+            accountService.updateDisplayName(newDisplayName)
+            _user.value = accountService.getUserProfile()
+        }
+    }
+
     fun onSignInClick(openScreen: (String) -> Unit) = openScreen(Screens.LogInScreen.name)
 
     fun onSignUpClick(openScreen: (String) -> Unit) = openScreen(Screens.RegisterScreen.name)

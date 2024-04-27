@@ -79,6 +79,7 @@ class RegisterViewModel @Inject constructor(
         launchCatching {
             //accountService.signUp(email, password)
             accountService.linkAccount(email, password)
+            accountService.updateDisplayName(username)
             navigateAndPopUp(Screens.HomeScreen.name, Screens.RegisterScreen.name)
         }
     }

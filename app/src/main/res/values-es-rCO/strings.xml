@@ -43,4 +43,13 @@
     <string name="continue_with_google">Continuar con Google</string>
     <string name="register_question">¿No tienes una cuenta? Regístrate</string>
     <string name="nav_account_text">Cuenta</string>
+    <string name="profile_email">Correo: %1$s</string>
+    <string name="profile_name">Nombre de usuario</string>
+    <string name="cancel">Cancelar</string>
+    <string name="update">Actualizar</string>
+    <string name="sign_out">Cerrar sesión</string>
+    <string name="confirm">Confirmar</string>
+    <string name="sign_out_description">¿Desea cerrar sesión?</string>
+    <string name="delete_account">Eliminar cuenta</string>
+    <string name="delete_account_description">¿Desea eliminar su cuenta?</string>
 </resources>
