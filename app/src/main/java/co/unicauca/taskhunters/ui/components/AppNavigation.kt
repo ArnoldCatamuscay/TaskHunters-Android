@@ -37,7 +37,7 @@ fun NavigationGraph(
                     }
                 },
                 coroutineScope = scope,
-                restartApp = { route -> appState.navigate(route) },
+                //restartApp = { route -> appState.clearAndNavigate(route) },
                 goToEdit = {
                     val gson: Gson = GsonBuilder().create()
                     val taskJson = gson.toJson(it)
@@ -112,7 +112,7 @@ fun NavigationGraph(
             EditTaskScreen(
                 isDaily = true,
                 isCreated = false,
-                goBack = { appState.navController.navigateUp() },
+                goBack = { appState.popUp() },
                 coroutineScope = scope,
             )
         }
@@ -120,7 +120,7 @@ fun NavigationGraph(
             EditTaskScreen(
                 isDaily = false,
                 isCreated = false,
-                goBack = { appState.navController.navigateUp() },
+                goBack = { appState.popUp() },
                 coroutineScope = scope,
             )
         }
@@ -136,7 +136,7 @@ fun NavigationGraph(
                 task = taskObject,
                 isDaily = true,
                 isCreated = true,
-                goBack = { appState.navController.navigateUp() },
+                goBack = { appState.popUp() },
                 coroutineScope = scope
             )
         }
@@ -151,7 +151,7 @@ fun NavigationGraph(
                 task = taskObject,
                 isDaily = false,
                 isCreated = true,
-                goBack = { appState.navController.navigateUp() },
+                goBack = { appState.popUp() },
                 coroutineScope = scope
             )
         }
@@ -166,7 +166,10 @@ fun NavigationGraph(
             })
         }
         composable(route = Screens.AccountScreen.name) {
-            AccountCenterScreen(restartApp = { route -> appState.navigate(route) })
+            AccountCenterScreen(
+                restartApp = { route -> appState.clearAndNavigate(route) },
+                openScreen = { route -> appState.navigate(route) }
+            )
         }
     }
 }

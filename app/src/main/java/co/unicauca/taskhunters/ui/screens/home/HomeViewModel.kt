@@ -1,12 +1,9 @@
 package co.unicauca.taskhunters.ui.screens.home
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import co.unicauca.taskhunters.data.TasksRepository
 import co.unicauca.taskhunters.model.Task
 import co.unicauca.taskhunters.model.TaskType
-import co.unicauca.taskhunters.model.service.AccountService
-import co.unicauca.taskhunters.ui.components.Screens
 import co.unicauca.taskhunters.ui.screens.AppViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
@@ -17,7 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val accountService: AccountService,
+    //private val accountService: AccountService,
     private val tasksRepository: TasksRepository
 ) : AppViewModel() {
     /**
@@ -37,31 +34,17 @@ class HomeViewModel @Inject constructor(
         private const val TIMEOUT_MILLIS = 5_000L
     }
 
-    fun initialize(restartApp: (String) -> Unit) {
+    /*fun initialize(restartApp: (String) -> Unit) {
         launchCatching {
             accountService.currentUser.collect { user ->
                 if (user == null) restartApp(Screens.SplashScreen.name)
-                else Log.d("Initial-Check","The user isn´t log out")
+                //else Log.d("Initial-Check","The user isn´t log out")
             }
         }
-    }
-
-    fun onSignOutClick(restartApp: (String) -> Unit) {
-        launchCatching {
-            accountService.signOut()
-            restartApp(Screens.SplashScreen.name)
-        }
-    }
-
-    fun onDeleteAccountClick(restartApp: (String) -> Unit) {
-        launchCatching {
-            accountService.deleteAccount()
-            restartApp(Screens.SplashScreen.name)
-        }
-    }
+    }*/
 
     /**
-     * Delete a Task in the Room database
+     * Check(Delete o change flag) a Task in the Room database
      */
     suspend fun taskChecked(task: Task) {
         if (task.type == TaskType.DAILY)

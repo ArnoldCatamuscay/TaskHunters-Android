@@ -35,7 +35,7 @@ import java.util.Locale
 @Composable
 fun AccountCenterScreen(
     restartApp: (String) -> Unit,
-    modifier: Modifier = Modifier,
+    openScreen: (String) -> Unit,
     viewModel: AccountCenterViewModel = hiltViewModel()
 ){
     val user by viewModel.user.collectAsState(initial = User())
@@ -84,14 +84,11 @@ fun AccountCenterScreen(
 
         if (user.isAnonymous) {
             AccountCenterCard(stringResource(R.string.btn_login), Icons.Filled.Face) {
-                viewModel.onSignInClick(restartApp)
+                viewModel.onSignInClick(openScreen)
             }
 
-            AccountCenterCard(
-                stringResource(R.string.nav_register_text),
-                Icons.Filled.AccountCircle
-            ) {
-                viewModel.onSignUpClick(restartApp)
+            AccountCenterCard(stringResource(R.string.nav_register_text), Icons.Filled.AccountCircle) {
+                viewModel.onSignUpClick(openScreen)
             }
         } else {
             ExitAppCard { viewModel.onSignOutClick(restartApp) }

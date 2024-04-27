@@ -37,10 +37,14 @@ val FABScreensList = listOf(
     Screens.ToDoScreen.toString()
 )
 
-val authScreensList = listOf(
+val noBottomScreensList = listOf(
     Screens.SplashScreen.name,
     Screens.LogInScreen.name,
-    Screens.RegisterScreen.name
+    Screens.RegisterScreen.name,
+    Screens.CreateDailyScreen.name,
+    Screens.CreateToDoScreen.name,
+    Screens.EditDailyScreen.name,
+    Screens.EditToDoScreen.name,
 )
 
 data class NavigationItem(

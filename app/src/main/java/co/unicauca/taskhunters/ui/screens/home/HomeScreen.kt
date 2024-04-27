@@ -14,12 +14,10 @@ import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
 import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -46,11 +44,11 @@ fun HomeScreen(
     onOpenDrawer: () -> Unit,
     coroutineScope: CoroutineScope,
     goToEdit: (Task) -> Unit,
-    restartApp: (String) -> Unit,
+    //restartApp: (String) -> Unit,
     modifier: Modifier = Modifier,
     homeViewModel: HomeViewModel = hiltViewModel(),
 ) {
-    LaunchedEffect(Unit) { homeViewModel.initialize(restartApp) }
+    //LaunchedEffect(Unit) { homeViewModel.initialize(restartApp) }
     val homeUiState by homeViewModel.homeUiState.collectAsState()
     LazyVerticalGrid(
         columns = GridCells.Fixed(4),
@@ -98,19 +96,6 @@ fun HomeScreen(
                     contentDescription = null,
                     modifier = Modifier.fillMaxSize()
                 )
-            }
-        }
-        //Log Out
-        item(span = { GridItemSpan(maxLineSpan) }) {
-            Button(onClick = { homeViewModel.onSignOutClick(restartApp) }) {
-                Text(text = "Cerrar sesión")
-            }
-            Spacer(modifier = Modifier.padding(8.dp))
-        }
-        //Delete account
-        item(span = { GridItemSpan(maxLineSpan) }) {
-            Button(onClick = { homeViewModel.onDeleteAccountClick(restartApp) }) {
-                Text(text = "Eliminar cuenta")
             }
         }
     }

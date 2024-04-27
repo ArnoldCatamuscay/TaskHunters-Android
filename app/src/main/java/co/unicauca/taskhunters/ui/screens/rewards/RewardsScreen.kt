@@ -35,8 +35,7 @@ import co.unicauca.taskhunters.ui.theme.TaskHuntersTheme
 
 @Composable
 fun RewardsScreen(
-    modifier: Modifier = Modifier,
-    //viewModel: RewardsViewModel = hiltViewModel()
+    modifier: Modifier = Modifier
 ) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(4),

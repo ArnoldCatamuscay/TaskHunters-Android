@@ -35,7 +35,7 @@ import co.unicauca.taskhunters.ui.components.FABScreensList
 import co.unicauca.taskhunters.ui.components.NavigationDrawerContent
 import co.unicauca.taskhunters.ui.components.NavigationGraph
 import co.unicauca.taskhunters.ui.components.TaskFAB
-import co.unicauca.taskhunters.ui.components.authScreensList
+import co.unicauca.taskhunters.ui.components.noBottomScreensList
 import co.unicauca.taskhunters.ui.theme.TaskHuntersTheme
 import kotlinx.coroutines.CoroutineScope
 
@@ -49,7 +49,7 @@ fun TaskHuntersApp() {
     ModalNavigationDrawer(
         drawerContent = {
             NavigationDrawerContent(
-                onClickItem = { route -> appState.navController.navigate(route) },
+                onClickItem = { route -> appState.navigate(route) },
                 drawerState = appState.drawerState,
                 scope = coroutineScope
             )
@@ -70,15 +70,15 @@ fun TaskHuntersApp() {
                 if (currentRoute != null && currentRoute in FABScreensList)
                     TaskFAB(
                         currentRoute = currentRoute,
-                        onClickButton = { route -> appState.navController.navigate(route) }
+                        onClickButton = { route -> appState.navigate(route) }
                     )
             },
             floatingActionButtonPosition = FabPosition.End,
             bottomBar = {
-                if (currentRoute != null && currentRoute !in authScreensList)
+                if (currentRoute != null && currentRoute !in noBottomScreensList)
                     BottomNavBar(
                         BOTTOM_NAV_ITEMS,
-                        onClickItem = { route -> appState.navController.navigate(route) }
+                        onClickItem = { route -> appState.navigate(route) }
                     )
             },
         ) { innerPadding ->

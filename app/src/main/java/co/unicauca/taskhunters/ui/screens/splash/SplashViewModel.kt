@@ -16,7 +16,6 @@ class SplashViewModel @Inject constructor(
             navigateAndPopUp(Screens.HomeScreen.name, Screens.SplashScreen.name)
         else
             createAnonymousAccount(navigateAndPopUp)
-        //else openAndPopUp(Screens.LogInScreen.name, Screens.SplashScreen.name)
     }
 
     private fun createAnonymousAccount(navigateAndPopUp: (String, String) -> Unit) {

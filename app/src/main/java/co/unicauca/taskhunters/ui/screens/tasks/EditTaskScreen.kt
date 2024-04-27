@@ -50,8 +50,7 @@ fun EditTaskScreen(
     LaunchedEffect(key1 = task) {
         editTasksViewModel.loadTaskData(task, isDaily)
     }
-    //val taskType = if (isDaily) TaskType.DAILY else TaskType.TODO
-    //editTasksViewModel.setTaskType(taskType)
+
     EditTaskScreenContent(
         isCreated = isCreated,
         uiState = taskUiState,
