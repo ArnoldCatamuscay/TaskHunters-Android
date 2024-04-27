@@ -1,16 +1,22 @@
 package co.unicauca.taskhunters.ui.screens.home
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.unicauca.taskhunters.data.TasksRepository
 import co.unicauca.taskhunters.model.Task
 import co.unicauca.taskhunters.model.TaskType
+import co.unicauca.taskhunters.ui.screens.AppViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import javax.inject.Inject
 
-class HomeViewModel(private val tasksRepository: TasksRepository) : ViewModel() {
+@HiltViewModel
+class HomeViewModel @Inject constructor(
+    //private val accountService: AccountService,
+    private val tasksRepository: TasksRepository
+) : AppViewModel() {
     /**
      * Holds dailies ui state. The list of tasks are retrieved from [TasksRepository]
      * and mapped to [HomeUiState]
@@ -28,8 +34,17 @@ class HomeViewModel(private val tasksRepository: TasksRepository) : ViewModel() 
         private const val TIMEOUT_MILLIS = 5_000L
     }
 
+    /*fun initialize(restartApp: (String) -> Unit) {
+        launchCatching {
+            accountService.currentUser.collect { user ->
+                if (user == null) restartApp(Screens.SplashScreen.name)
+                //else Log.d("Initial-Check","The user isn´t log out")
+            }
+        }
+    }*/
+
     /**
-     * Delete a Task in the Room database
+     * Check(Delete o change flag) a Task in the Room database
      */
     suspend fun taskChecked(task: Task) {
         if (task.type == TaskType.DAILY)

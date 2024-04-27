@@ -1,4 +1,4 @@
-package co.unicauca.taskhunters.ui
+package co.unicauca.taskhunters
 
 import android.content.res.Resources
 import androidx.compose.foundation.layout.Box
@@ -25,11 +25,9 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import co.unicauca.taskhunters.TaskHuntersAppState
 import co.unicauca.taskhunters.ui.common.snackbar.SnackBarManager
 import co.unicauca.taskhunters.ui.components.BOTTOM_NAV_ITEMS
 import co.unicauca.taskhunters.ui.components.BottomNavBar
@@ -37,20 +35,13 @@ import co.unicauca.taskhunters.ui.components.FABScreensList
 import co.unicauca.taskhunters.ui.components.NavigationDrawerContent
 import co.unicauca.taskhunters.ui.components.NavigationGraph
 import co.unicauca.taskhunters.ui.components.TaskFAB
-import co.unicauca.taskhunters.ui.screens.home.HomeViewModel
-import co.unicauca.taskhunters.ui.screens.tasks.DailiesViewModel
-import co.unicauca.taskhunters.ui.screens.tasks.EditTasksViewModel
-import co.unicauca.taskhunters.ui.screens.tasks.ToDoSViewModel
+import co.unicauca.taskhunters.ui.components.noBottomScreensList
 import co.unicauca.taskhunters.ui.theme.TaskHuntersTheme
 import kotlinx.coroutines.CoroutineScope
 
 @Composable
 fun TaskHuntersApp() {
     val appState = rememberAppState()
-    val homeViewModel: HomeViewModel = viewModel(factory = AppViewModelProvider.Factory)
-    val dailiesViewModel: DailiesViewModel = viewModel(factory = AppViewModelProvider.Factory)
-    val toDoSViewModel: ToDoSViewModel = viewModel(factory = AppViewModelProvider.Factory)
-    val editTaskViewModel: EditTasksViewModel = viewModel(factory = AppViewModelProvider.Factory)
     val coroutineScope = rememberCoroutineScope()
     val navBackStackEntry by appState.navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
@@ -58,7 +49,7 @@ fun TaskHuntersApp() {
     ModalNavigationDrawer(
         drawerContent = {
             NavigationDrawerContent(
-                onClickItem = { route -> appState.navController.navigate(route) },
+                onClickItem = { route -> appState.navigate(route) },
                 drawerState = appState.drawerState,
                 scope = coroutineScope
             )
@@ -79,15 +70,16 @@ fun TaskHuntersApp() {
                 if (currentRoute != null && currentRoute in FABScreensList)
                     TaskFAB(
                         currentRoute = currentRoute,
-                        onClickButton = { route -> appState.navController.navigate(route) }
+                        onClickButton = { route -> appState.navigate(route) }
                     )
             },
             floatingActionButtonPosition = FabPosition.End,
             bottomBar = {
-                BottomNavBar(
-                    BOTTOM_NAV_ITEMS,
-                    onClickItem = { route -> appState.navController.navigate(route) }
-                )
+                if (currentRoute != null && currentRoute !in noBottomScreensList)
+                    BottomNavBar(
+                        BOTTOM_NAV_ITEMS,
+                        onClickItem = { route -> appState.navigate(route) }
+                    )
             },
         ) { innerPadding ->
             Box(
@@ -95,14 +87,7 @@ fun TaskHuntersApp() {
                     .fillMaxSize()
                     .padding(innerPadding)
             ) {
-                NavigationGraph(
-                    appState = appState,
-                    scope = coroutineScope,
-                    homeViewModel = homeViewModel,
-                    dailiesViewModel = dailiesViewModel,
-                    toDoSViewModel = toDoSViewModel,
-                    editTasksViewModel = editTaskViewModel
-                )
+                NavigationGraph(appState = appState, scope = coroutineScope)
             }
         }
     }

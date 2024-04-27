@@ -34,4 +34,21 @@
     <string name="new_to_do">New To Do</string>
     <string name="edit_daily">Edit Daily</string>
     <string name="edit_to_do">Edit To Do</string>
+    <string name="email_empty">Email is empty</string>
+    <string name="password_empty">Password is empty</string>
+    <string name="btn_login">Log In</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="continue_as_guest">Continue as Guest</string>
+    <string name="continue_with_google">Continue with Google</string>
+    <string name="register_question">Don\'t have an account? Register</string>
+    <string name="nav_account_text">Account</string>
+    <string name="profile_email">Email: %1$s</string>
+    <string name="profile_name">Display name</string>
+    <string name="cancel">Cancel</string>
+    <string name="update">Update</string>
+    <string name="sign_out">Sign out</string>
+    <string name="confirm">Confirm</string>
+    <string name="sign_out_description">Do you want to sign out?</string>
+    <string name="delete_account">Delete Account</string>
+    <string name="delete_account_description">Do you want to delete your account?</string>
 </resources>

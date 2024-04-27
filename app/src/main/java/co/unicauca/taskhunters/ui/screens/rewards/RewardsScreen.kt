@@ -34,7 +34,9 @@ import co.unicauca.taskhunters.ui.components.CharacterInfo
 import co.unicauca.taskhunters.ui.theme.TaskHuntersTheme
 
 @Composable
-fun RewardsScreen(modifier: Modifier = Modifier) {
+fun RewardsScreen(
+    modifier: Modifier = Modifier
+) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(4),
         modifier = modifier
@@ -126,6 +128,6 @@ val recentRewardsList = listOf(
 @Composable
 fun RewardsPreview() {
     TaskHuntersTheme {
-        RewardsScreen()
+        //RewardsScreen()
     }
 }

@@ -4,12 +4,17 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.unicauca.taskhunters.data.TasksRepository
 import co.unicauca.taskhunters.model.Task
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import javax.inject.Inject
 
-class ToDoSViewModel(private val tasksRepository: TasksRepository) : ViewModel() {
+@HiltViewModel
+class ToDoSViewModel @Inject constructor(
+    private val tasksRepository: TasksRepository
+) : ViewModel() {
     /**
      * Holds dailies ui state. The list of to do's are retrieved from [TasksRepository]
      * and mapped to [TasksListUiState]

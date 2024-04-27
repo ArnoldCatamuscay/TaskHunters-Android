@@ -8,12 +8,17 @@ import co.unicauca.taskhunters.data.TasksRepository
 import co.unicauca.taskhunters.model.Task
 import co.unicauca.taskhunters.model.TaskType
 import co.unicauca.taskhunters.ui.common.snackbar.SnackBarManager
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import javax.inject.Inject
 
-class EditTasksViewModel(private val tasksRepository: TasksRepository) : ViewModel() {
+@HiltViewModel
+class EditTasksViewModel @Inject constructor(
+    private val tasksRepository: TasksRepository
+) : ViewModel() {
     /**
      * Holds current task ui state
      */

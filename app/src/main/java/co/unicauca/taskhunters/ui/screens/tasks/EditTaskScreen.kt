@@ -28,6 +28,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import co.unicauca.taskhunters.R
 import co.unicauca.taskhunters.model.Task
 import co.unicauca.taskhunters.model.TaskType
@@ -43,14 +44,13 @@ fun EditTaskScreen(
     isCreated: Boolean,
     goBack: () -> Unit,
     coroutineScope: CoroutineScope,
-    editTasksViewModel: EditTasksViewModel
+    editTasksViewModel: EditTasksViewModel = hiltViewModel()
 ) {
     val taskUiState by editTasksViewModel.taskUiState.collectAsState()
     LaunchedEffect(key1 = task) {
         editTasksViewModel.loadTaskData(task, isDaily)
     }
-    //val taskType = if (isDaily) TaskType.DAILY else TaskType.TODO
-    //editTasksViewModel.setTaskType(taskType)
+
     EditTaskScreenContent(
         isCreated = isCreated,
         uiState = taskUiState,

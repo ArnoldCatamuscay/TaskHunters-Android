@@ -4,11 +4,17 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.unicauca.taskhunters.data.TasksRepository
 import co.unicauca.taskhunters.model.Task
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
-class DailiesViewModel(private val tasksRepository: TasksRepository) : ViewModel() {
+import javax.inject.Inject
+
+@HiltViewModel
+class DailiesViewModel @Inject constructor(
+    private val tasksRepository: TasksRepository
+) : ViewModel() {
 
     /**
      * Holds dailies ui state. The list of dailies are retrieved from [TasksRepository]

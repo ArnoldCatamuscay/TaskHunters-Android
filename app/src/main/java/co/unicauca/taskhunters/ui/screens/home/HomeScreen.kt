@@ -28,6 +28,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import co.unicauca.taskhunters.R
 import co.unicauca.taskhunters.model.Task
 import co.unicauca.taskhunters.ui.components.CharacterInfo
@@ -43,9 +44,11 @@ fun HomeScreen(
     onOpenDrawer: () -> Unit,
     coroutineScope: CoroutineScope,
     goToEdit: (Task) -> Unit,
-    homeViewModel: HomeViewModel,
-    modifier: Modifier = Modifier
+    //restartApp: (String) -> Unit,
+    modifier: Modifier = Modifier,
+    homeViewModel: HomeViewModel = hiltViewModel(),
 ) {
+    //LaunchedEffect(Unit) { homeViewModel.initialize(restartApp) }
     val homeUiState by homeViewModel.homeUiState.collectAsState()
     LazyVerticalGrid(
         columns = GridCells.Fixed(4),

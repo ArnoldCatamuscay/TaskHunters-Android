@@ -2,8 +2,9 @@ package co.unicauca.taskhunters.data
 
 import co.unicauca.taskhunters.model.Task
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class OfflineTasksRepository(private val taskDao: TaskDao) : TasksRepository {
+class OfflineTasksRepository @Inject constructor(private val taskDao: TaskDao) : TasksRepository {
     override fun getAllTasksStream(): Flow<List<Task>> = taskDao.getAllTasks()
 
     override fun getAllDailiesStream(): Flow<List<Task>> = taskDao.getAllDailies()

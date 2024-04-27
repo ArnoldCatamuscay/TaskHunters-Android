@@ -1,17 +1,24 @@
 package co.unicauca.taskhunters.ui.screens.register
 
-import androidx.lifecycle.ViewModel
+import co.unicauca.taskhunters.model.service.AccountService
 import co.unicauca.taskhunters.ui.common.ext.isValidEmail
 import co.unicauca.taskhunters.ui.common.ext.isValidPassword
 import co.unicauca.taskhunters.ui.common.ext.passwordMatches
 import co.unicauca.taskhunters.ui.common.snackbar.SnackBarManager
+import co.unicauca.taskhunters.ui.components.Screens
+import co.unicauca.taskhunters.ui.screens.AppViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import javax.inject.Inject
 import co.unicauca.taskhunters.R.string as AppText
 
-class RegisterViewModel : ViewModel() {
+@HiltViewModel
+class RegisterViewModel @Inject constructor(
+    private val accountService: AccountService
+) : AppViewModel() {
     private val _uiState = MutableStateFlow(RegisterUiState())
     var uiState: StateFlow<RegisterUiState> = _uiState.asStateFlow()
 
@@ -48,7 +55,7 @@ class RegisterViewModel : ViewModel() {
         }
     }
 
-    fun onRegisterClick(goToHome: () -> Unit) {
+    fun onRegisterClick(navigateAndPopUp: (String, String) -> Unit) {
         if (username.isBlank()) {
             SnackBarManager.showMessage(AppText.username_error)
             return
@@ -69,6 +76,15 @@ class RegisterViewModel : ViewModel() {
             return
         }
 
-        goToHome()
+        launchCatching {
+            //accountService.signUp(email, password)
+            accountService.linkAccount(email, password)
+            accountService.updateDisplayName(username)
+            navigateAndPopUp(Screens.HomeScreen.name, Screens.RegisterScreen.name)
+        }
+    }
+
+    fun onLogInClick(navigateAndPopUp: (String, String) -> Unit) {
+        navigateAndPopUp(Screens.LogInScreen.name, Screens.RegisterScreen.name)
     }
 }
