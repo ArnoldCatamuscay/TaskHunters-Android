@@ -84,7 +84,22 @@ fun AboutUsScreen(
             )
             Spacer(modifier = Modifier.height(80.dp))
             Text(
-                text = stringResource(id = R.string.authors),
+                text = stringResource(R.string.designed_by),
+                style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
+                textAlign = TextAlign.Center
+            )
+            Text(
+                text = "Arnold Catamuscay",
+                style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
+                textAlign = TextAlign.Center
+            )
+            Text(
+                text = "Cristian Nuñez",
+                style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
+                textAlign = TextAlign.Center
+            )
+            Text(
+                text = "Juan Manzano",
                 style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
                 textAlign = TextAlign.Center
             )
