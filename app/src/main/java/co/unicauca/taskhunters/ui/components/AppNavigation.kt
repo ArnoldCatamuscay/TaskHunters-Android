@@ -8,6 +8,7 @@ import co.unicauca.taskhunters.model.Task
 import co.unicauca.taskhunters.model.TaskType
 import co.unicauca.taskhunters.ui.screens.account_center.AccountCenterScreen
 import co.unicauca.taskhunters.ui.screens.home.HomeScreen
+import co.unicauca.taskhunters.ui.screens.info.AboutUsScreen
 import co.unicauca.taskhunters.ui.screens.login.LoginScreen
 import co.unicauca.taskhunters.ui.screens.register.RegisterScreen
 import co.unicauca.taskhunters.ui.screens.rewards.RewardsScreen
@@ -107,6 +108,9 @@ fun NavigationGraph(
         }
         composable(route = Screens.SettingsScreen.name) {
 
+        }
+        composable(route = Screens.AboutUsScreen.name){
+            AboutUsScreen(goBack = { appState.navController.navigateUp() })
         }
         composable(route = Screens.CreateDailyScreen.name) {
             EditTaskScreen(
