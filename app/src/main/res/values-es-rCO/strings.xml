@@ -8,6 +8,7 @@
     <string name="nav_rewards_text">Recompensas</string>
     <string name="nav_settings_text">Configuración</string>
     <string name="nav_register_text">Registrarse</string>
+    <string name="nav_aboutus_text">Acerca de Nosotros</string>
     <string name="pending_tasks_text">Tareas pendientes</string>
     <string name="recent_rewards_text">Recompensas recientes</string>
     <string name="username_placeholder">Usuario</string>
@@ -52,4 +53,7 @@
     <string name="sign_out_description">¿Desea cerrar sesión?</string>
     <string name="delete_account">Eliminar cuenta</string>
     <string name="delete_account_description">¿Desea eliminar su cuenta?</string>
+    <string name="authors">Diseñado por:&#10;&#10;Arnold Catamuscay &#10;Cristian Nuñez &#10;Juan Manzano</string>
+    <string name="about_us">TaskHunters es una emocionante aplicación diseñada para motivar a jóvenes y niños mayores de 7 años a mejorar sus hábitos diarios de una manera divertida y gamificada. Con una interfaz fácil de usar, los usuarios pueden crear notas y seguir sus tareas diarias. La aplicación presenta elementos únicos como una barra de vida y un nivel de experiencia, evolucionando a medida que los usuarios completan tareas.</string>
+    <string name="designed_by">Diseñado por:</string>
 </resources>

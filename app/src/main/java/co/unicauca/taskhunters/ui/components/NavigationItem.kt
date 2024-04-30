@@ -5,12 +5,14 @@ import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.outlined.AccountCircle
 import androidx.compose.material.icons.outlined.CheckCircle
 import androidx.compose.material.icons.outlined.DateRange
 import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material.icons.outlined.Star
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -25,6 +27,7 @@ enum class Screens {
     SettingsScreen,
     LogInScreen,
     RegisterScreen,
+    AboutUsScreen,
     CreateDailyScreen,
     CreateToDoScreen,
     EditDailyScreen,
@@ -100,6 +103,13 @@ val DRAWER_ITEMS = listOf(
         unselectedIcon = Icons.Outlined.AccountCircle,
         hasNews = false,
     ),
+    NavigationItem(
+        route = Screens.AboutUsScreen.name,
+        title = R.string.nav_aboutus_text,
+        selectedIcon = Icons.Filled.Info,
+        unselectedIcon = Icons.Outlined.Info,
+        hasNews = false,
+    )
 )
 
 val BOTTOM_NAV_ITEMS = listOf(
