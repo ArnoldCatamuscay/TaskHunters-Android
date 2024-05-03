@@ -132,7 +132,7 @@ fun RegisterScreenContent(
             }
         }
         ClickableText(
-            text = AnnotatedString("Already have an account? Log In"),
+            text = AnnotatedString(stringResource(R.string.already_have_an_account)),
             modifier = Modifier
                 .padding(20.dp),
             onClick = { onLogInClick() },
