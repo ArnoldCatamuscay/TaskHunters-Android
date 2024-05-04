@@ -12,6 +12,8 @@ import co.unicauca.taskhunters.ui.screens.info.AboutUsScreen
 import co.unicauca.taskhunters.ui.screens.login.LoginScreen
 import co.unicauca.taskhunters.ui.screens.register.RegisterScreen
 import co.unicauca.taskhunters.ui.screens.rewards.RewardsScreen
+import co.unicauca.taskhunters.ui.screens.settings.PremiumScreen
+import co.unicauca.taskhunters.ui.screens.settings.SettingsScreen
 import co.unicauca.taskhunters.ui.screens.splash.SplashScreen
 import co.unicauca.taskhunters.ui.screens.tasks.DailiesScreen
 import co.unicauca.taskhunters.ui.screens.tasks.EditTaskScreen
@@ -107,7 +109,11 @@ fun NavigationGraph(
             )
         }
         composable(route = Screens.SettingsScreen.name) {
-
+            SettingsScreen(onBackClick = { appState.navController.navigate(route = Screens.HomeScreen.name)},
+                onRemoveAdsClick = { appState.navController.navigate(route = Screens.PremiumScreen.name) })
+        }
+        composable(route = Screens.PremiumScreen.name) {
+            PremiumScreen(onBack = { appState.navController.navigate(route = Screens.SettingsScreen.name)})
         }
         composable(route = Screens.AboutUsScreen.name){
             AboutUsScreen(goBack = { appState.navController.navigateUp() })

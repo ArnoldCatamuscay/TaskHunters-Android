@@ -32,7 +32,8 @@ enum class Screens {
     CreateToDoScreen,
     EditDailyScreen,
     EditToDoScreen,
-    AccountScreen
+    AccountScreen,
+    PremiumScreen,
 }
 
 val FABScreensList = listOf(
