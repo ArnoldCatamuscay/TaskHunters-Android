@@ -90,5 +90,4 @@ fun DailiesScreen(
 @Preview(showBackground = true)
 @Composable
 fun DailiesPreview() {
-
 }
