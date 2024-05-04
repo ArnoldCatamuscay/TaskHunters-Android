@@ -56,6 +56,7 @@
     <string name="authors">Diseñado por:&#10;&#10;Arnold Catamuscay &#10;Cristian Nuñez &#10;Juan Manzano</string>
     <string name="about_us">TaskHunters es una emocionante aplicación diseñada para motivar a jóvenes y niños mayores de 7 años a mejorar sus hábitos diarios de una manera divertida y gamificada. Con una interfaz fácil de usar, los usuarios pueden crear notas y seguir sus tareas diarias. La aplicación presenta elementos únicos como una barra de vida y un nivel de experiencia, evolucionando a medida que los usuarios completan tareas.</string>
     <string name="designed_by">Diseñado por:</string>
+    <string name="already_have_an_account">¿Ya tienes una cuenta? Inicia sesión</string>
     <string name="verpremium">Task Hunter Premium</string>
     <string name="ofername1">Eliminar anuncios (1 mes)</string>
     <string name="ofername2">Eliminar anuncios (6 mes)</string>
