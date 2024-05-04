@@ -103,7 +103,11 @@ fun AboutUsScreen(
                 style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
                 textAlign = TextAlign.Center
             )
-
+            Text(
+                text = "Cesar Roa Palomino",
+                style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
+                textAlign = TextAlign.Center
+            )
         }
 
 
